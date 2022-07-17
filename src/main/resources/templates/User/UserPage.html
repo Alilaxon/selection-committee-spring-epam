@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>UserPage</h1>
+<div>
+    <h3>
+        <span th:text="${userProfile.getUsername}"></span>
+    </h3>
+</div>
+<div>
+    <h3>
+        <span th:text="${userProfile.getEmail}"></span>
+    </h3>
+</div>
+<a href="/">back to main page</a>
+
+</body>
+</html>

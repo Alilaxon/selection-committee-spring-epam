@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AdminPage</title>
+</head>
+<body>
+<h1>AdminPage</h1>
+<div>
+    <h3>
+        <span th:text="${userProfile.getUsername}"></span>
+    </h3>
+</div>
+<div>
+    <h3>
+        <span th:text="${userProfile.getEmail}"></span>
+    </h3>
+</div>
+<a href="/">back to main page</a>
+</body>
+</html>

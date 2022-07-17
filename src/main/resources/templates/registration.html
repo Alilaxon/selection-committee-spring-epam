@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>registration</title>
+    <h1>registration of new user</h1>
+</head>
+<body>
+<!--//                String login,-->
+<!--//                String password,-->
+<!--//                String email,-->
+<!--//                String firstname,-->
+<!--//                String surname,-->
+<!--//                String city,-->
+<!--//                String region-->
+<form th:method="POST" th:action="@{/registration}"  th:object="${userForm}">
+
+    <label  for="login"> enter login</label>
+<!--    <input type="text" name="login"  id="login" >-->
+    <input type="text" th:field="*{username}" id="login"/>
+    <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">name error</div>
+
+    <div style="color:blue"
+            th:if="${LoginIsReserved}"
+         th:text="login_Is_already_use">
+    </div>
+    <br/>
+    <label for="password"> enter password</label>
+    <input name="password" th:field="*{password}"  id="password">
+    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password error</div>
+    <br/>
+    <label for="email"> enter email</label>
+    <input name="email" th:field="*{email}"  id="email">
+    <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email error</div>
+
+    <div style="color:blue"
+         th:if="${EmailIsReserved}"
+         th:text="Email_Is_already_use">
+    </div>
+
+    <br/>
+    <input type="submit" value="create">
+</form>
+</body>
+</html>
