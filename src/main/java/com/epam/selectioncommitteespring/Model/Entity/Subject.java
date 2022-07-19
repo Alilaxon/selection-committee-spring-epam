@@ -36,30 +36,37 @@ public class Subject {
     }
 
     public void setId(Long id) {
+
         this.id = id;
     }
 
     public String getNameEN() {
+
         return nameEN;
     }
 
     public void setNameEN(String nameEN) {
+
         this.nameEN = nameEN;
     }
 
     public String getNameRU() {
+
         return nameRU;
     }
 
     public void setNameRU(String nameRU) {
+
         this.nameRU = nameRU;
     }
 
     public String getNameUK() {
+
         return nameUK;
     }
 
     public void setNameUK(String nameUK) {
+
         this.nameUK = nameUK;
     }
 }
