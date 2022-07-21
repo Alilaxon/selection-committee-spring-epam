@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" html xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>AddNewFaculty</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/admin/addSubject}"  th:object="${subjectFrom}">
+
+    <label for="nameEN"> enter nameEN</label>
+    <input type="text" th:field="*{nameEN}" id="nameEN"/>
+    <div style="color:red" th:if="${#fields.hasErrors('nameEN')}" th:errors="*{nameEN}">name error</div>
+
+    <div style="color:blue"
+         th:if="${SubjectIsReserved}"
+         th:text="#{subject.exception.SubjectIsReserved}">
+    </div>
+
+
+    <label for="nameRU"> enter nameRU</label>
+    <input type="text" th:field="*{nameRU}" id="nameRU"/>
+    <div style="color:red" th:if="${#fields.hasErrors('nameRU')}" th:errors="*{nameRU}">name error</div>
+
+    <label for="nameUK"> enter nameUK</label>
+    <input type="text" th:field="*{nameUK}" id="nameUK"/>
+    <div style="color:red" th:if="${#fields.hasErrors('nameUK')}" th:errors="*{nameUK}">name error</div>
+
+    <br/>
+    <input type="submit" value="create">
+</form>
+</body>
+</html>

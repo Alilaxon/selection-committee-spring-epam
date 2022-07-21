@@ -18,13 +18,15 @@
     <label  for="login"> enter login</label>
 <!--    <input type="text" name="login"  id="login" >-->
     <input type="text" th:field="*{username}" id="login"/>
+
     <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">name error</div>
 
     <div style="color:blue"
             th:if="${LoginIsReserved}"
-         th:text="login_Is_already_use">
+         th:text="#{registration.exception.loginIsReserved}">
     </div>
     <br/>
+
     <label for="password"> enter password</label>
     <input name="password" th:field="*{password}"  id="password">
     <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password error</div>

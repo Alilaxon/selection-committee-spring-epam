@@ -1,3 +1,12 @@
+CREATE TABLE roles
+(
+    id SERIAL PRIMARY KEY   NOT NULL,
+    name        VARCHAR(50) NOT NULL ,
+    description VARCHAR(50)
+
+);
+
+
 CREATE TABLE users
 (
     id          SERIAL      NOT NULL,
@@ -14,15 +23,6 @@ CREATE TABLE users
     PRIMARY KEY (id)
 
 );
-
-CREATE TABLE roles
-(
-    id SERIAL PRIMARY KEY   NOT NULL,
-    name        VARCHAR(50) NOT NULL ,
-    description VARCHAR(50)
-
-);
-
 
 
 CREATE TABLE faculties
@@ -42,3 +42,11 @@ CREATE TABLE subjects
     name_uk VARCHAR(50) ,
     PRIMARY KEY (id)
 );
+
+INSERT INTO roles
+values (default, 'USER');
+INSERT INTO roles
+values (default, 'ADMIN');
+
+INSERT INTO subjects
+VALUES (default,'subjectEN','subjectRU','subjectUK');
