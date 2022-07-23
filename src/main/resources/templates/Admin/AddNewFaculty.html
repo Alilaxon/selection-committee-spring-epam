@@ -5,6 +5,25 @@
     <title>AddNewFaculty</title>
 </head>
 <body>
+<form th:method="POST" th:action="@{/admin/addFaculty}"  th:object="${facultyForm}">
+    <label for="facultyName"> Enter name of Faculty</label>
+    <input type="text" th:field="*{facultyName}" id="facultyName"/>
+    <div style="color:red" th:if="${#fields.hasErrors('facultyName')}" th:errors="*{facultyName}">name error</div>
 
+    <div style="color:blue"
+         th:if="${FacultyIsReserved}"
+         th:text="'такой предмет уже существует'">
+    </div>
+    <br/>
+    <label for="budgetPlaces"> Enter budgetPlaces</label>
+    <input type="text" th:field="*{budgetPlaces}" id="budgetPlaces"/>
+    <div style="color:red" th:if="${#fields.hasErrors('budgetPlaces')}" th:errors="*{budgetPlaces}">budgetPlaces error</div>
+    <br/>
+    <label for="generalPlaces"> Enter generalPlaces</label>
+    <input type="text" th:field="*{generalPlaces}" id="generalPlaces"/>
+    <div style="color:red" th:if="${#fields.hasErrors('generalPlaces')}" th:errors="*{generalPlaces}">generalPlaces</div>
+    <br/>
+    <input type="submit" value="create">
+</form>
 </body>
 </html>

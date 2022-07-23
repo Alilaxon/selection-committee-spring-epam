@@ -13,7 +13,7 @@
 
     <div style="color:blue"
          th:if="${SubjectIsReserved}"
-         th:text="#{subject.exception.SubjectIsReserved}">
+         th:text="'такой предмет уже существует'">
     </div>
 
 
@@ -21,12 +21,11 @@
     <input type="text" th:field="*{nameRU}" id="nameRU"/>
     <div style="color:red" th:if="${#fields.hasErrors('nameRU')}" th:errors="*{nameRU}">name error</div>
 
-    <label for="nameUK"> enter nameUK</label>
-    <input type="text" th:field="*{nameUK}" id="nameUK"/>
-    <div style="color:red" th:if="${#fields.hasErrors('nameUK')}" th:errors="*{nameUK}">name error</div>
-
     <br/>
     <input type="submit" value="create">
 </form>
+<div>
+<a th:href="@{/admin/subjects}"  th:text="'back to page subjects'"></a>
+</div>
 </body>
 </html>

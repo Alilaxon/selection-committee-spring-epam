@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:each="faculty : ${faculties}">
+    <h3>
+        <a th:text="'Название факультета '+ ${faculty.getName}">en</a>
+        <br/>
+        <a th:text="'бюджетных мест '+${faculty.getBudgetPlaces}">BudgetPlaces</a>
+        <br/>
+        <a th:text="'всего мест '+${faculty.getGeneralPlaces()}">GeneralPlaces</a>
+    </h3>
+</div>
+<h2><a href="/admin/addFaculty">add Faculty</a></h2>
+</body>
+</html>

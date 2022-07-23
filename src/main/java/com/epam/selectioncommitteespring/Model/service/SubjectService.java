@@ -19,7 +19,7 @@ public class SubjectService {
         Subject subject = new Subject();
         subject.setNameEN(subjectForm.getNameEN());
         subject.setNameRU(subjectForm.getNameRU());
-        subject.setNameUK(subjectForm.getNameUK());
+
 
     return     subjectRepository.save(subject);
 

@@ -16,19 +16,17 @@ public class Subject {
     @Column(name = "name_ru")
     private String nameRU;
 
-    @Column(name = "name_uk")
-    private String nameUK;
+
 
     public Subject() {
     }
 
     public Subject(String nameEN,
-                   String nameRU,
-                   String nameUK) {
+                   String nameRU
+                   ) {
 
         this.nameEN = nameEN;
         this.nameRU = nameRU;
-        this.nameUK = nameUK;
     }
 
     public Long getId() {
@@ -60,13 +58,5 @@ public class Subject {
         this.nameRU = nameRU;
     }
 
-    public String getNameUK() {
 
-        return nameUK;
-    }
-
-    public void setNameUK(String nameUK) {
-
-        this.nameUK = nameUK;
-    }
 }

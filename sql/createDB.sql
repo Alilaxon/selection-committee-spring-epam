@@ -39,7 +39,6 @@ CREATE TABLE subjects
     id   SERIAL NOT NULL,
     name_en VARCHAR(50) ,
     name_ru VARCHAR(50) ,
-    name_uk VARCHAR(50) ,
     PRIMARY KEY (id)
 );
 
@@ -49,4 +48,4 @@ INSERT INTO roles
 values (default, 'ADMIN');
 
 INSERT INTO subjects
-VALUES (default,'subjectEN','subjectRU','subjectUK');
+VALUES (default,'subjectEN','subjectRU');

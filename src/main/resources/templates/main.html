@@ -6,23 +6,26 @@
     <h1 >Selection Committee</h1>
 </head>
 <body>
-<h2><a href="/greeting">greeting</a></h2>
+
+<!--Стартовая страница -->
+<h2><a th:href="@{/greeting}" th:text="greeting"></a></h2>
 <h2><a href="/registration/form">registration</a></h2>
 <h2><a href="/login">login</a></h2>
 <h2><a href="/logout">logout</a></h2>
 <h3><a href="/admin">checkAdminPage</a></h3>
 <h3><a href="/user">checkUserPage</a></h3>
+<h3><a href="admin/faculties">faculties</a></h3>
+<h2>
 <li sec:authorize="hasAuthority('ADMIN')">
-    <a th:href="@{/admin/users}" class="link-dark" th:text="AllUsersTH">
+    <a th:href="@{/admin/users}" class="link-dark" th:text="Users">
     </a>
 </li>
+</br>
 <li sec:authorize="hasAuthority('ADMIN')">
-    <a th:href="@{/admin/subjects}" class="link-dark" th:text="subjectsTH">
+    <a th:href="@{/admin/subjects}" class="link-dark" th:text="Subjects">
     </a>
 </li>
-<li sec:authorize="hasAuthority('ADMIN')">
-<h2><a href="/admin/users">all users def</a></h2>
-<h2><a href="/admin/subjects">all subjects def</a></h2>
-</li>
+</h2>
+
 </body>
 </html>
