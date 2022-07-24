@@ -4,6 +4,7 @@ package com.epam.selectioncommitteespring.Controller.Admin;
 import com.epam.selectioncommitteespring.Model.DTO.FacultyForm;
 import com.epam.selectioncommitteespring.Model.DTO.SubjectForm;
 import com.epam.selectioncommitteespring.Model.DTO.UserForm;
+import com.epam.selectioncommitteespring.Model.Entity.Subject;
 import com.epam.selectioncommitteespring.Model.Entity.User;
 import com.epam.selectioncommitteespring.Model.exception.FacultyIsReservedException;
 import com.epam.selectioncommitteespring.Model.exception.SubjectIsReservedException;
@@ -17,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -35,11 +37,11 @@ public class AdminController {
         this.subjectService = subjectService;
     }
 
-    @GetMapping
+    @GetMapping()
     public String adminPage(
             @RequestParam(value = "userId",
                     required = false,
-                    defaultValue = "4") Long id, Model model) {
+                    defaultValue = "2") Long id, Model model) {
 
         User user = userService.findUserById(id);
 
@@ -72,12 +74,22 @@ public class AdminController {
         return "admin/AddNewSubject";
     }
 
+    @DeleteMapping({"{id}"})
+    public String deleteSubject (@PathVariable("id") Long id){
+
+        System.out.println("id="+id+" delete");
+
+        subjectService.deleteSubject(id);
+        return "redirect:/admin/subjects";
+    }
 
     @PostMapping("/addSubject")
     public String addSubject(@ModelAttribute("subjectFrom")
                              @Valid SubjectForm subjectForm,
                              BindingResult bindingResult,
                              Model model) {
+
+        System.out.println("addSubject: "+subjectForm.getNameEN());
 
         if (bindingResult.hasErrors()) {
 
@@ -86,7 +98,7 @@ public class AdminController {
 
         try {
             subjectService.addNewSubject(subjectForm);
-            return "redirect:/admin";
+            return "redirect:/admin/subjects";
 
         } catch (SubjectIsReservedException exception) {
             model.addAttribute("SubjectIsReserved", true);
@@ -102,9 +114,12 @@ public class AdminController {
 
 
     @GetMapping("/addFaculty")
-    public String registrationFaculty(@ModelAttribute("facultyForm")
-                                      FacultyForm facultyForm,
-                                      Model model){
+    public String registrationFaculty(Model model){
+
+        List<Subject> subjects = subjectService.getAllSubjects();
+
+        model.addAttribute("subjectList",subjects);
+        model.addAttribute("facultyForm",new FacultyForm());
 
 
         return "admin/AddNewFaculty";
@@ -121,11 +136,19 @@ public class AdminController {
         }
         try {
             facultyService.addFaculty(facultyForm);
-            return "redirect:/admin";
+            return "redirect:/admin/faculties";
 
         } catch (FacultyIsReservedException exception) {
             model.addAttribute("FacultyIsReserved", true);
             return "admin/AddNewFaculty";
         }
+    }
+    @DeleteMapping({"/faculty/{id}"})
+    public String deleteFaculty (@PathVariable("id") Long id){
+
+        System.out.println("id="+id+" delete faculty");
+
+        facultyService.deleteFaculty(id);
+        return "redirect:/admin/faculties";
     }
 }

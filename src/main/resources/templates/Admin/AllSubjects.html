@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Subjects</title>
@@ -11,9 +11,18 @@
 
         <a th:text="','+ ${subject.getNameRU()}">ru</a>
 
+        <form th:method="DELETE" th:action="@{/admin/{id}(id=${subject.getId})} " >
+            <input type = "submit" value="Delete">
+
+        </form>
     </h3>
 </div>
-<h2><a href="/admin/addSubject">add subject</a></h2>
-<a href="/">back to main page</a>
+<h2>
+    <a href="/admin/addSubject">add subject</a>
+    </br>
+    <a href="/">back to main page</a>
+</h2>
+
+
 </body>
 </html>

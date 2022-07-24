@@ -1,6 +1,7 @@
 package com.epam.selectioncommitteespring.Model.Entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "faculties")
@@ -17,6 +18,13 @@ public class Faculty {
 
     @Column(name = "general_places")
     Integer generalPlaces;
+
+
+    @ManyToMany
+    @JoinTable( name = "faculties_subjects",
+    joinColumns = @JoinColumn(name ="faculty_id"),
+            inverseJoinColumns =@JoinColumn( name = "subject_id"))
+    private List<Subject> subjects;
 
     public Faculty() {
     }
@@ -60,5 +68,13 @@ public class Faculty {
 
     public void setGeneralPlaces(Integer generalPlaces) {
         this.generalPlaces = generalPlaces;
+    }
+
+    public List<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(List<Subject> subjects) {
+        this.subjects = subjects;
     }
 }

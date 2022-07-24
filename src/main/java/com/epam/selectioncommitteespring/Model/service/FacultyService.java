@@ -20,17 +20,26 @@ public class FacultyService {
         faculty.setName(facultyForm.getFacultyName());
         faculty.setBudgetPlaces(facultyForm.getBudgetPlaces());
         faculty.setGeneralPlaces(facultyForm.getGeneralPlaces());
+        faculty.setSubjects(facultyForm.getRequiredSubjects());
+
 
         return facultyRepository.save(faculty);
     }
 
     private void checkFacultyName(String name) throws FacultyIsReservedException {
+
         if(facultyRepository.existsByName(name)){
+
             throw new FacultyIsReservedException();
         }
     }
 
     public List<Faculty> getAllFaculties(){
+
         return facultyRepository.findAll();
     }
+   public void deleteFaculty(Long id){
+        facultyRepository.deleteById(id);
+   }
+
 }

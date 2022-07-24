@@ -14,25 +14,29 @@ public class SubjectService {
     @Autowired
     SubjectRepository subjectRepository;
 
-    public Subject addNewSubject (SubjectForm subjectForm) throws SubjectIsReservedException {
+    public Subject addNewSubject(SubjectForm subjectForm) throws SubjectIsReservedException {
         checkSubjectNameEN(subjectForm.getNameEN());
         Subject subject = new Subject();
         subject.setNameEN(subjectForm.getNameEN());
         subject.setNameRU(subjectForm.getNameRU());
 
 
-    return     subjectRepository.save(subject);
+        return subjectRepository.save(subject);
 
     }
 
-    public List<Subject> getAllSubjects(){
-        return
-                subjectRepository.findAll();
+    public List<Subject> getAllSubjects() {
+
+        return subjectRepository.findAll();
     }
 
-    private void checkSubjectNameEN(String nameEN) throws SubjectIsReservedException{
-        if(subjectRepository.existsByNameEN(nameEN)){
+    private void checkSubjectNameEN(String nameEN) throws SubjectIsReservedException {
+        if (subjectRepository.existsByNameEN(nameEN)) {
             throw new SubjectIsReservedException();
         }
+    }
+
+    public void deleteSubject (Long id){
+        subjectRepository.deleteById(id);
     }
 }

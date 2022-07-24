@@ -1,8 +1,11 @@
 package com.epam.selectioncommitteespring.Model.DTO;
 
+import com.epam.selectioncommitteespring.Model.Entity.Subject;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 public class FacultyForm {
 
@@ -19,6 +22,8 @@ public class FacultyForm {
     @NotNull(message = "field can not be empty")
     @Min(value = 1,message = "min value is 1")
     private Integer generalPlaces;
+
+    private List<Subject> requiredSubjects;
 
     public FacultyForm() {
     }
@@ -53,5 +58,13 @@ public class FacultyForm {
 
     public void setGeneralPlaces(Integer generalPlaces) {
         this.generalPlaces = generalPlaces;
+    }
+
+    public List<Subject> getRequiredSubjects() {
+        return requiredSubjects;
+    }
+
+    public void setRequiredSubjects(List<Subject> requiredSubjects) {
+        this.requiredSubjects = requiredSubjects;
     }
 }

@@ -5,7 +5,7 @@
     <title>AddNewFaculty</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/admin/addFaculty}"  th:object="${facultyForm}">
+<form th:method="POST" th:action="@{/admin/addFaculty}" th:object="${facultyForm}">
     <label for="facultyName"> Enter name of Faculty</label>
     <input type="text" th:field="*{facultyName}" id="facultyName"/>
     <div style="color:red" th:if="${#fields.hasErrors('facultyName')}" th:errors="*{facultyName}">name error</div>
@@ -17,13 +17,45 @@
     <br/>
     <label for="budgetPlaces"> Enter budgetPlaces</label>
     <input type="text" th:field="*{budgetPlaces}" id="budgetPlaces"/>
-    <div style="color:red" th:if="${#fields.hasErrors('budgetPlaces')}" th:errors="*{budgetPlaces}">budgetPlaces error</div>
+    <div style="color:red" th:if="${#fields.hasErrors('budgetPlaces')}" th:errors="*{budgetPlaces}">budgetPlaces error
+    </div>
     <br/>
     <label for="generalPlaces"> Enter generalPlaces</label>
     <input type="text" th:field="*{generalPlaces}" id="generalPlaces"/>
-    <div style="color:red" th:if="${#fields.hasErrors('generalPlaces')}" th:errors="*{generalPlaces}">generalPlaces</div>
+    <div style="color:red" th:if="${#fields.hasErrors('generalPlaces')}" th:errors="*{generalPlaces}">generalPlaces
+    </div>
     <br/>
+
+    <div>
+        <div class="row  row-cols-lg-4 g-2 g-lg-3 ">
+
+            <tr th:each="subject: ${subjectList}">
+
+                <input type="checkbox"
+                       th:field="*{requiredSubjects}"
+                       th:value="${subject.id}"
+                       th:id="${subject.id}"
+                >
+
+                <label
+                        th:for="${subject.id}" th:text="${subject.nameEN}">
+                </label>
+                <br>
+
+            </tr>
+        </div>
+    </div>
     <input type="submit" value="create">
+
 </form>
+<div th:each="subject : ${subjects}">
+    <h3>
+        <a th:text="${subject.getNameEN()}+' '">en</a>
+
+        <a th:text="','+ ${subject.getNameRU()}">ru</a>
+
+    </h3>
+</div>
+<a href="/admin/faculties">back to main page</a>
 </body>
 </html>

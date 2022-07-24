@@ -22,7 +22,7 @@ public class UserController {
     }
 
     @GetMapping()
-    public String userPage(@RequestParam(value = "userId",required = false,defaultValue="1") Long id,
+    public String userPage(@RequestParam(value = "userId",required = false,defaultValue="3") Long id,
                            Model model){
        User user = userService.findUserById(id);
 
