@@ -3,7 +3,7 @@ package com.epam.selectioncommitteespring.Controller.Admin;
 
 import com.epam.selectioncommitteespring.Model.DTO.FacultyForm;
 import com.epam.selectioncommitteespring.Model.DTO.SubjectForm;
-import com.epam.selectioncommitteespring.Model.DTO.UserForm;
+import com.epam.selectioncommitteespring.Model.Entity.Faculty;
 import com.epam.selectioncommitteespring.Model.Entity.Subject;
 import com.epam.selectioncommitteespring.Model.Entity.User;
 import com.epam.selectioncommitteespring.Model.exception.FacultyIsReservedException;
@@ -150,5 +150,41 @@ public class AdminController {
 
         facultyService.deleteFaculty(id);
         return "redirect:/admin/faculties";
+    }
+
+    @GetMapping("/updateFaculty/{id}")
+    public String updateFaculty(@PathVariable("id") Long facultyId,Model model){
+        Faculty faculty = facultyService.getFaculty(facultyId);
+        List<Subject> subjects = subjectService.getAllSubjects();
+
+
+        FacultyForm facultyForm = new FacultyForm();
+        facultyForm.setId(faculty.getId());
+        facultyForm.setFacultyName(faculty.getName());
+        facultyForm.setGeneralPlaces(faculty.getGeneralPlaces());
+        facultyForm.setBudgetPlaces(faculty.getBudgetPlaces());
+        facultyForm.setRequiredSubjects(faculty.getSubjects());
+
+        model.addAttribute("facultyForm",facultyForm);
+        model.addAttribute("subjects",subjects);
+
+        return "admin/UpdateFaculty";
+
+
+    }
+    @PatchMapping  ("/editFaculty")
+    public String patchFaculty(@Valid FacultyForm facultyForm,
+                               BindingResult bindingResult,
+                               Model model){
+        if(bindingResult.hasErrors()){
+            return "admin/UpdateFaculty";
+        }
+
+
+           facultyService.updateFaculty(facultyForm);
+
+
+
+    return "redirect:/admin/faculties";
     }
 }

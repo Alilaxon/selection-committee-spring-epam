@@ -1,5 +1,7 @@
 package com.epam.selectioncommitteespring.Model.Entity;
 
+import com.epam.selectioncommitteespring.Model.DTO.FacultyForm;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -29,13 +31,24 @@ public class Faculty {
     public Faculty() {
     }
 
-    public Faculty(String name,
+    public Faculty(
+                   String name,
                    Integer budgetPlaces,
-                   Integer generalPlaces) {
+                   Integer generalPlaces,
+                   List<Subject> subjects) {
 
         this.name = name;
         this.budgetPlaces = budgetPlaces;
         this.generalPlaces = generalPlaces;
+        this.subjects = subjects;
+    }
+
+    public Faculty(FacultyForm facultyForm) {
+        this.id = facultyForm.getId();
+        this.name = facultyForm.getFacultyName();
+        this.budgetPlaces = facultyForm.getBudgetPlaces();
+        this.generalPlaces = facultyForm.getGeneralPlaces();
+        this.subjects = facultyForm.getRequiredSubjects();
     }
 
     public Long getId() {

@@ -30,6 +30,11 @@
         <a th:href="@{/admin/faculties}" class="link-dark" th:text="Faculties">
         </a>
     </li>
+
+    <li sec:authorize="hasAuthority('USER')">
+        <a th:href="@{/user/faculties}" class="link-dark" th:text="Faculties">
+        </a>
+    </li>
 </h2>
 
 </body>

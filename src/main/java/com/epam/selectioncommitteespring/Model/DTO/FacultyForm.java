@@ -10,7 +10,7 @@ import java.util.List;
 public class FacultyForm {
 
 
-
+    private Long id;
 
     @NotBlank(message = "field can not be empty")
     private String facultyName;
@@ -28,13 +28,17 @@ public class FacultyForm {
     public FacultyForm() {
     }
 
-    public FacultyForm(String facultyName, Integer budgetPlaces, Integer generalPlaces) {
+    public FacultyForm(Long id,
+                       String facultyName,
+                       Integer budgetPlaces,
+                       Integer generalPlaces,
+                       List<Subject> requiredSubjects) {
+        this.id = id;
         this.facultyName = facultyName;
         this.budgetPlaces = budgetPlaces;
         this.generalPlaces = generalPlaces;
+        this.requiredSubjects = requiredSubjects;
     }
-
-
 
     public String getFacultyName() {
         return facultyName;
@@ -66,5 +70,13 @@ public class FacultyForm {
 
     public void setRequiredSubjects(List<Subject> requiredSubjects) {
         this.requiredSubjects = requiredSubjects;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

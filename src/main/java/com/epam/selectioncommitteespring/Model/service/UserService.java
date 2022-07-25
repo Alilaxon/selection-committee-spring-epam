@@ -16,13 +16,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
+
 
 
 @Component
@@ -31,6 +30,7 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+
     @Autowired
     public UserService(UserRepository userRepository,
                        PasswordEncoder passwordEncoder,
@@ -39,6 +39,7 @@ public class UserService implements UserDetailsService {
         this.userRepository = userRepository;
         this.passwordEncoder =passwordEncoder;
     }
+
     public User addNewUser(UserForm userForm)
             throws UsernameIsReservedException, EmailIsReservedException {
 
@@ -88,20 +89,15 @@ public class UserService implements UserDetailsService {
             throws UsernameNotFoundException {
         User user = findByUsername(username);
         if(user == null) {
-            throw new UsernameNotFoundException(String.format("User not found"));
+            throw new UsernameNotFoundException("User not found");
         }
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
                 getAuthorities(user.getRole()));
     }
-    //перевожу лист ролей в лист GrantedAuthority
-//    private Collection<? extends GrantedAuthority>
-//    mapRolesToAuthority(Collection<Role>roles){
-//        return roles.stream()
-//                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
-//                .collect(Collectors.toList());
-//    }
+
+
     public List<User> getAllUsers(){
         return userRepository.findAllByRole();
     }

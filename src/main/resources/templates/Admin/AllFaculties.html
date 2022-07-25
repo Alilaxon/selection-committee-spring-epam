@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Faculties</title>
@@ -9,28 +9,36 @@
     <h3>
         <a style="color:darkblue" th:text="'Название факультета '+ ${faculty.getName}">en</a>
         <br/>
-        <a  th:text="'бюджетных мест '+${faculty.getBudgetPlaces}">BudgetPlaces</a>
+        <a th:text="'бюджетных мест '+${faculty.getBudgetPlaces}">BudgetPlaces</a>
         <br/>
-        <a  th:text="'всего мест '+${faculty.getGeneralPlaces()}">GeneralPlaces</a>
+        <a th:text="'всего мест '+${faculty.getGeneralPlaces()}">GeneralPlaces</a>
 
     </h3>
 
-        <div th:each="subject : ${faculty.getSubjects()}">
-            <h4>
-                <a style="color:green" th:text="${subject.getNameEN()}+' '">en</a>
-            </h4>
-        </div>
+    <div th:each="subject : ${faculty.getSubjects()}">
+        <h4>
+            <a style="color:green" th:text="${subject.getNameEN()}+' '">en</a>
+        </h4>
+    </div >
+    <div sec:authorize="hasAuthority('ADMIN')">
+        <form th:method="DELETE" th:action="@{/admin/faculty/{id}(id=${faculty.getId})} ">
+            <input type="submit" value="Delete">
 
-    <form th:method="DELETE" th:action="@{/admin/faculty/{id}(id=${faculty.getId})} " >
-        <input type = "submit" value="Delete">
+        </form>
 
-    </form>
-
+        <form>
+            <a th:href="@{/admin/updateFaculty/{id}(id=${faculty.getId})}">
+                <input type="button" th:value="'Edit'">
+            </a>
+        </form>
+    </div>
 </div>
 <h2>
-    <a href="/admin/addFaculty">add Faculty</a>
+
+    <a sec:authorize="hasAuthority('ADMIN')" href="/admin/addFaculty">add Faculty</a>
     <br/>
-    <a href="/">back to main page</a>
+
+    <a th:href="@{/}" th:text="'back to main page'"></a>
 </h2>
 
 </body>
