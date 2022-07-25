@@ -65,11 +65,3 @@ VALUES ( default,
 'Defence against the Dark Arts',
 'Защита от Тёмных искусств' );
 
-INSERT INTO faculties
-VALUES ( default,'Gryffindor',20,30);
-
-INSERT INTO faculties
-VALUES (default,'Slytherin',20,30);
-
-INSERT INTO faculties
-VALUES (default,'Hufflepuff',20,30);
