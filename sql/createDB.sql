@@ -18,6 +18,7 @@ CREATE TABLE users
     city        VARCHAR(32) ,
     region      VARCHAR(32) ,
     institution VARCHAR(64) ,
+    blocked     bool NOT NULL DEFAULT FALSE,
     role_id     INT NOT NULL
         REFERENCES roles (id),
     PRIMARY KEY (id)

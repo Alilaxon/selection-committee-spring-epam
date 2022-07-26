@@ -39,9 +39,7 @@ public class AdminController {
 
     @GetMapping()
     public String adminPage(
-            @RequestParam(value = "userId",
-                    required = false,
-                    defaultValue = "2") Long id, Model model) {
+            @RequestParam("userId") Long id, Model model) {
 
         User user = userService.findUserById(id);
 
@@ -59,6 +57,17 @@ public class AdminController {
         return "admin/AllUsers";
     }
 
+    @PatchMapping("/users")
+    public String blockUsers(@RequestParam("userId") Long userId,
+                             @RequestParam("userBlocked") Boolean blocked) {
+        if (blocked) {
+            userService.unblockUserById(userId);
+        } else {
+            userService.blockUserById(userId);
+        }
+        return "redirect:/admin/users";
+    }
+
     @GetMapping("/subjects")
     public String allSubjects(Model model) {
         model.addAttribute("subjects", subjectService.getAllSubjects());
@@ -68,16 +77,16 @@ public class AdminController {
 
     @GetMapping("/addSubject")
     public String registrationSubject(@ModelAttribute("subjectFrom")
-                                          SubjectForm subjectForm,
-                                          Model model) {
+                                      SubjectForm subjectForm,
+                                      Model model) {
 
         return "admin/AddNewSubject";
     }
 
     @DeleteMapping({"{id}"})
-    public String deleteSubject (@PathVariable("id") Long id){
+    public String deleteSubject(@PathVariable("id") Long id) {
 
-        System.out.println("id="+id+" delete");
+        System.out.println("id=" + id + " delete");
 
         subjectService.deleteSubject(id);
         return "redirect:/admin/subjects";
@@ -89,7 +98,7 @@ public class AdminController {
                              BindingResult bindingResult,
                              Model model) {
 
-        System.out.println("addSubject: "+subjectForm.getNameEN());
+        System.out.println("addSubject: " + subjectForm.getNameEN());
 
         if (bindingResult.hasErrors()) {
 
@@ -98,29 +107,30 @@ public class AdminController {
 
         try {
             subjectService.addNewSubject(subjectForm);
+
             return "redirect:/admin/subjects";
 
         } catch (SubjectIsReservedException exception) {
             model.addAttribute("SubjectIsReserved", true);
+
             return "admin/AddNewSubject";
         }
     }
+
     @GetMapping("/faculties")
-    public String getAllFaculties(Model model){
-        model.addAttribute("faculties",facultyService.getAllFaculties());
-    return "admin/AllFaculties";
+    public String getAllFaculties(Model model) {
+        model.addAttribute("faculties", facultyService.getAllFaculties());
+        return "admin/AllFaculties";
     }
 
 
-
     @GetMapping("/addFaculty")
-    public String registrationFaculty(Model model){
+    public String registrationFaculty(Model model) {
 
         List<Subject> subjects = subjectService.getAllSubjects();
 
-        model.addAttribute("subjectList",subjects);
-        model.addAttribute("facultyForm",new FacultyForm());
-
+        model.addAttribute("subjectList", subjects);
+        model.addAttribute("facultyForm", new FacultyForm());
 
         return "admin/AddNewFaculty";
     }
@@ -136,27 +146,29 @@ public class AdminController {
         }
         try {
             facultyService.addFaculty(facultyForm);
+
             return "redirect:/admin/faculties";
 
         } catch (FacultyIsReservedException exception) {
             model.addAttribute("FacultyIsReserved", true);
+
             return "admin/AddNewFaculty";
         }
     }
+
     @DeleteMapping({"/faculty/{id}"})
-    public String deleteFaculty (@PathVariable("id") Long id){
+    public String deleteFaculty(@PathVariable("id") Long id) {
 
-        System.out.println("id="+id+" delete faculty");
-
+        System.out.println("id=" + id + " delete faculty");
         facultyService.deleteFaculty(id);
+
         return "redirect:/admin/faculties";
     }
 
     @GetMapping("/updateFaculty/{id}")
-    public String updateFaculty(@PathVariable("id") Long facultyId,Model model){
+    public String updateFaculty(@PathVariable("id") Long facultyId, Model model) {
         Faculty faculty = facultyService.getFaculty(facultyId);
         List<Subject> subjects = subjectService.getAllSubjects();
-
 
         FacultyForm facultyForm = new FacultyForm();
         facultyForm.setId(faculty.getId());
@@ -165,26 +177,21 @@ public class AdminController {
         facultyForm.setBudgetPlaces(faculty.getBudgetPlaces());
         facultyForm.setRequiredSubjects(faculty.getSubjects());
 
-        model.addAttribute("facultyForm",facultyForm);
-        model.addAttribute("subjects",subjects);
+        model.addAttribute("facultyForm", facultyForm);
+        model.addAttribute("subjects", subjects);
 
         return "admin/UpdateFaculty";
-
-
     }
-    @PatchMapping  ("/editFaculty")
+
+    @PatchMapping("/editFaculty")
     public String patchFaculty(@Valid FacultyForm facultyForm,
                                BindingResult bindingResult,
-                               Model model){
-        if(bindingResult.hasErrors()){
+                               Model model) {
+        if (bindingResult.hasErrors()) {
             return "admin/UpdateFaculty";
         }
+        facultyService.updateFaculty(facultyForm);
 
-
-           facultyService.updateFaculty(facultyForm);
-
-
-
-    return "redirect:/admin/faculties";
+        return "redirect:/admin/faculties";
     }
 }

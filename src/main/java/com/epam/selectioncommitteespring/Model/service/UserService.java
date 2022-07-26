@@ -51,6 +51,7 @@ public class UserService implements UserDetailsService {
         user.setEmail(userForm.getEmail());
         user.setPassword(passwordEncoder.encode(userForm.getPassword()));
         user.setRole(roleRepository.findByRoleName(Role.RoleName.USER));
+        user.setBlocked(false);
 
 //    user.setFirstname(userForm.getFirstname());
 //    user.setSurname(userForm.getSurname());
@@ -91,17 +92,30 @@ public class UserService implements UserDetailsService {
         if(user == null) {
             throw new UsernameNotFoundException("User not found");
         }
-        return new org.springframework.security.core.userdetails.User(
-                user.getUsername(),
-                user.getPassword(),
-                getAuthorities(user.getRole()));
+        return user;
+//                org.springframework.security.core.userdetails.User(
+//                user.getUsername(),
+//                user.getPassword(),
+//                getAuthorities(user.getRole()));
     }
 
 
     public List<User> getAllUsers(){
+
         return userRepository.findAllByRole();
     }
-    public Collection<? extends GrantedAuthority> getAuthorities(Role role) {
-        return Collections.singleton(new SimpleGrantedAuthority(role.getRoleName().name()));
+
+    public User blockUserById(Long id){
+        User user = userRepository.findById(id).get();
+        user.setBlocked(true);
+        return userRepository.save(user);
     }
+    public User unblockUserById(Long id){
+        User user = userRepository.findById(id).get();
+        user.setBlocked(false);
+        return userRepository.save(user);
+    }
+//    public Collection<? extends GrantedAuthority> getAuthorities(Role role) {
+//        return Collections.singleton(new SimpleGrantedAuthority(role.getRoleName().name()));
+//    }
 }

@@ -7,11 +7,11 @@
 <body>
 <div th:each="faculty : ${faculties}">
     <h3>
-        <a style="color:darkblue" th:text="'Название факультета '+ ${faculty.getName}">en</a>
+        <a style="color:darkblue" th:text="'Faculty name is '+ ${faculty.getName}">en</a>
         <br/>
-        <a th:text="'бюджетных мест '+${faculty.getBudgetPlaces}">BudgetPlaces</a>
+        <a th:text="'budget places '+${faculty.getBudgetPlaces}">BudgetPlaces</a>
         <br/>
-        <a th:text="'всего мест '+${faculty.getGeneralPlaces()}">GeneralPlaces</a>
+        <a th:text="'general places '+${faculty.getGeneralPlaces()}">GeneralPlaces</a>
 
     </h3>
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>AllUsers</title>
@@ -11,6 +11,22 @@
 
         <a th:text="'('+ ${user.getEmail()} + ')'"></a>
 
+        <a th:text="'(blocked='+ ${user.getBlocked()} + ')'"></a>
+
+        <form th:method="PATCH" th:action="@{/admin/users}">
+
+            <input th:type="hidden" th:name="userId" th:value="${user.id}">
+            <input th:type="hidden" th:name="userBlocked" th:value="${user.blocked}">
+
+            <button th:type="submit" th:if="${user.blocked}">
+                <span style="color:green" th:text="'unblock'"></span>
+            </button>
+
+            <button  th:type="submit" th:if="${!user.blocked}">
+                <span style="color:red" th:text="'block'"></span>
+            </button>
+
+        </form>
     </h3>
 </div>
 <a href="/">back to main page</a>
