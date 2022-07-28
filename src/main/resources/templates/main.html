@@ -31,17 +31,17 @@
     </li>
     </br>
     <li sec:authorize="hasAuthority('ADMIN')">
-        <a th:href="@{/admin/subjects}" class="link-dark" th:text="Subjects">
+        <a th:href="@{/admin/subjects}"  th:text="Subjects">
         </a>
     </li>
     </br>
     <li sec:authorize="hasAuthority('ADMIN')">
-        <a th:href="@{/admin/faculties}" class="link-dark" th:text="Faculties">
+        <a th:href="@{/admin/faculties}"  th:text="Faculties">
         </a>
     </li>
 
     <li sec:authorize="hasAuthority('USER')">
-        <a th:href="@{/user/faculties}" class="link-dark" th:text="Faculties">
+        <a th:href="@{/user/faculties}"  th:text="Faculties">
         </a>
     </li>
 </h2>

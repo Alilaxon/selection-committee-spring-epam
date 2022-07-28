@@ -5,7 +5,26 @@
     <title>Faculties</title>
 </head>
 <body>
-<div th:each="faculty : ${faculties}">
+
+<div>
+
+
+    <ul>
+
+        <li><a th:href="@{/admin/faculties?sort=name}" th:text="'Sort by Name'">
+
+        </a></li>
+        <li><a th:href="@{/admin/faculties?sort=generalPlaces}" th:text="'Sort by general Places'">
+
+        </a></li>
+        <li><a th:href="@{/admin/faculties?sort=budgetPlaces}" th:text="'Sort by budget Places'">
+
+        </a></li>
+    </ul>
+    <hr>
+</div>
+<div  th:each="faculty : ${faculties}">
+
     <h3>
         <a style="color:darkblue" th:text="'Faculty name is '+ ${faculty.getName}">en</a>
         <br/>
@@ -31,6 +50,7 @@
                 <input type="button" th:value="'Edit'">
             </a>
         </form>
+        <hr>
     </div>
 </div>
 <h2>

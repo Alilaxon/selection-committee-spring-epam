@@ -18,7 +18,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
@@ -118,8 +120,31 @@ public class AdminController {
     }
 
     @GetMapping("/faculties")
-    public String getAllFaculties(Model model) {
-        model.addAttribute("faculties", facultyService.getAllFaculties());
+    public String getAllFaculties(@RequestParam(name = "sort",required = false,defaultValue = "name")
+                                      String sort, Model model) {
+
+       List<Faculty> faculties = facultyService.getAllFaculties();
+       List<Faculty> sortedFaculties;
+        System.out.println(sort.equals("generalCapacity"));
+       if(sort.equals("generalPlaces")){
+
+        sortedFaculties = faculties.stream().sorted(Comparator.comparing(Faculty::getGeneralPlaces))
+                .collect(Collectors.toList());
+
+       } else if (sort.equals("budgetPlaces")) {
+
+           sortedFaculties = faculties.stream().sorted(Comparator.comparing(Faculty::getBudgetPlaces))
+                   .collect(Collectors.toList());
+
+       } else {
+
+           sortedFaculties = faculties.stream().sorted(Comparator.comparing(Faculty::getName))
+                   .collect(Collectors.toList());
+       }
+
+        model.addAttribute("sort", sort);
+        model.addAttribute("faculties", sortedFaculties);
+
         return "admin/AllFaculties";
     }
 
