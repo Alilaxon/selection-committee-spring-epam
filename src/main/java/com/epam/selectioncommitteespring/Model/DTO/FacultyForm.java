@@ -23,6 +23,8 @@ public class FacultyForm {
     @Min(value = 1,message = "min value is 1")
     private Integer generalPlaces;
 
+    private Boolean recruitment;
+
     private List<Subject> requiredSubjects;
 
     public FacultyForm() {
@@ -78,5 +80,13 @@ public class FacultyForm {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Boolean getRecruitment() {
+        return recruitment;
+    }
+
+    public void setRecruitment(Boolean recruitment) {
+        this.recruitment = recruitment;
     }
 }

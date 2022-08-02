@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Faculties</title>
+</head>
+<body>
+
+<div>
+    <ul sec:authorize="hasAuthority('ADMIN')">
+        <li>
+            <a th:if="${order.equals('asc')}"
+               th:href="@{/admin/faculties?sort=name&order=desc}">
+                <label>
+                    <input style="color:green" th:type="button" th:value="'Sort by Name'">
+                </label>
+            </a>
+            <a th:if="${order.equals('desc')}"
+               th:href="@{/admin/faculties?sort=name&order=asc}">
+                <label>
+                    <input style="color:blue" th:type="button" th:value="'Sort by Name'">
+                </label>
+            </a>
+        </li>
+        <li>
+            <a th:if="${order.equals('asc')}"
+               th:href="@{/admin/faculties?sort=generalPlaces&order=desc}">
+                <label>
+                    <input style="color:green" th:type="button" th:value="'Sort by general Places'">
+                </label>
+            </a>
+            <a th:if="${order.equals('desc')}"
+               th:href="@{/admin/faculties?sort=generalPlaces&order=asc}">
+                <label>
+                    <input style="color:blue" th:type="button" th:value="'Sort by general Places'">
+                </label>
+            </a>
+        </li>
+        <li>
+            <a th:if="${order.equals('asc')}"
+               th:href="@{/admin/faculties?sort=budgetPlaces&order=desc}">
+                <label>
+                    <input style="color:green" th:type="button" th:value="'Sort by budget Places'">
+                </label>
+
+            </a>
+
+            <a th:if="${order.equals('desc')}"
+               th:href="@{/admin/faculties?sort=budgetPlaces&order=asc}">
+                <label>
+                    <input style="color:blue" th:type="button" th:value="'Sort by budget Places'">
+                </label>
+            </a>
+        </li>
+    </ul>
+    <hr>
+</div>
+<div th:each="faculty : ${faculties}">
+
+    <h3>
+        <a th:text="'Faculty name is '+ ${faculty.getName}">en</a>
+        <br/>
+        <a th:text="'budget places '+${faculty.getBudgetPlaces}">BudgetPlaces</a>
+        <br/>
+        <a th:text="'general places '+${faculty.getGeneralPlaces()}">GeneralPlaces</a>
+    </h3>
+
+    <div  th:each="subject : ${faculty.getSubjects()}">
+        <h4>
+            <a style="color:green" th:text="${subject.getNameEN()}+' '">en</a>
+        </h4>
+
+    </div>
+    <div sec:authorize="hasAuthority('USER')">
+        <div th:if="${!faculty.getRecruitment()}">
+            <a th:href="@{'/user/statement?facultyId='+ ${faculty.getId()}}">
+                <input type="button" th:value="'regisrtation'">
+            </a>
+        </div>
+    </div>
+    <div sec:authorize="hasAuthority('ADMIN')">
+        <form th:method="DELETE" th:action="@{/admin/faculty/{id}(id=${faculty.getId})} ">
+            <input type="submit" value="Delete">
+        </form>
+        <form>
+
+            <a th:href="@{'/admin/updateFaculty?facultyId='+${faculty.getId}}">
+                <input type="button" th:value="'Edit'">
+            </a>
+        </form>
+
+        <form th:method="PATCH" th:action="@{/admin/recruitment}">
+
+            <input th:type="hidden" th:name="facultyId" th:value="${faculty.getId()}">
+            <input th:type="hidden" th:name="facultyOpen" th:value="${faculty.getRecruitment()}">
+
+            <button th:type="submit" th:if="${faculty.getRecruitment()} ">
+                <label>
+                    <input style="color:green" th:type="button" th:value="'Open'">
+                </label>
+            </button>
+
+            <button th:type="submit" th:if="${!faculty.getRecruitment()}">
+                <label>
+                    <input style="color:red" th:type="button" th:value="'Close'">
+                </label>
+            </button>
+
+        </form>
+
+        <hr>
+    </div>
+</div>
+<h2>
+
+    <a sec:authorize="hasAuthority('ADMIN')" href="/admin/addFaculty">add Faculty</a>
+    <br/>
+
+    <a th:href="@{/}" th:text="'back to main page'"></a>
+</h2>
+
+</body>
+</html>

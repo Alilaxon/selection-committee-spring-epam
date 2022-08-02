@@ -5,10 +5,11 @@
     <title>UpdateFaculty</title>
 </head>
 <body>
-<form th:method="PATCH" th:action="@{/admin/editFaculty}" th:object="${facultyForm}">
+<form th:method="PATCH" th:action="@{/admin/updateFaculty}" th:object="${facultyForm}">
 
-    <input type="hidden" class="form-control" id="facultyId"
-           name="facultyId" th:field="*{id}">
+<!--    Без facultyId будут появляться дубли-->
+    <input th:type="hidden" th:name="facultyId" th:field="*{id}">
+    <input th:type="hidden" th:name="recruitment" th:field="*{recruitment}">
 
        <label th:for="facultyName" th:text="'edit name'"> </label>
         <input type="text" th:field="*{facultyName}" id="facultyName">
@@ -24,8 +25,8 @@
 
     <div>
 
-        <tr th:each="subject: ${subjects}">
-
+        <tr  th:each="subject: ${subjects}">
+     <!--    type="checkbox"  Позволяет ставить галочки-->
             <input type="checkbox"
                    th:field="*{requiredSubjects}"
                    th:value="${subject.id}"
@@ -46,5 +47,12 @@
 
 </form>
 
+
+<a
+   th:href="@{/admin/faculties}">
+    <label>
+        <input  th:type="button" th:value="'back'">
+    </label>
+</a>
 </body>
 </html>

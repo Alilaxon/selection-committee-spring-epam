@@ -16,7 +16,17 @@
         <span th:text="${userProfile.getEmail}"></span>
     </h3>
 </div>
-<a href="/">back to main page</a>
+<div th:each="statement :${statements}">
+    <h3>
+        <a th:text="'Faculty : '+ ${statement.getFacultyId().getName()}"></a>
+        <br/>
+        <a th:text="'GradePointAverage : '+${statement.getGradePointAverage()}"></a>
+        <br/>
+        <a th:text="'Position : '+${statement.getPosition_id().getPositionType().name()}"></a>
+    </h3>
+</div>
+
+<a th:href="@{/}" th:text="'back to main page'"></a>
 
 </body>
 </html>

@@ -28,6 +28,8 @@ public class Faculty {
             inverseJoinColumns =@JoinColumn( name = "subject_id"))
     private List<Subject> subjects;
 
+    @Column(name = "recruitment")
+    Boolean recruitment;
     public Faculty() {
     }
 
@@ -49,6 +51,7 @@ public class Faculty {
         this.budgetPlaces = facultyForm.getBudgetPlaces();
         this.generalPlaces = facultyForm.getGeneralPlaces();
         this.subjects = facultyForm.getRequiredSubjects();
+        this.recruitment = facultyForm.getRecruitment();
     }
 
     public Long getId() {
@@ -89,5 +92,21 @@ public class Faculty {
 
     public void setSubjects(List<Subject> subjects) {
         this.subjects = subjects;
+    }
+
+    public Boolean getRecruitment() {
+        return recruitment;
+    }
+
+    public void setRecruitment(Boolean recruitment) {
+        this.recruitment = recruitment;
+    }
+
+    @Override
+    public String toString() {
+        return "Faculty{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

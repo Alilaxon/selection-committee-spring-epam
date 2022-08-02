@@ -24,7 +24,7 @@ import java.util.List;
 
 
 
-@Component
+
 @Service
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
@@ -103,6 +103,10 @@ public class UserService implements UserDetailsService {
     public List<User> getAllUsers(){
 
         return userRepository.findAllByRole();
+    }
+
+    public User findByName(String name){
+        return userRepository.findByUsername(name);
     }
 
     public User blockUserById(Long id){

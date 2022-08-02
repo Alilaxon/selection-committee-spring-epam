@@ -3,6 +3,7 @@ package com.epam.selectioncommitteespring.Model.service;
 import com.epam.selectioncommitteespring.Model.DTO.FacultyForm;
 import com.epam.selectioncommitteespring.Model.Entity.Faculty;
 import com.epam.selectioncommitteespring.Model.Entity.Subject;
+import com.epam.selectioncommitteespring.Model.Entity.User;
 import com.epam.selectioncommitteespring.Model.exception.FacultyIsReservedException;
 import com.epam.selectioncommitteespring.Model.repository.FacultyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ public class FacultyService {
         faculty.setBudgetPlaces(facultyForm.getBudgetPlaces());
         faculty.setGeneralPlaces(facultyForm.getGeneralPlaces());
         faculty.setSubjects(facultyForm.getRequiredSubjects());
+        faculty.setRecruitment(false);
 
 
         return facultyRepository.save(faculty);
@@ -60,4 +62,15 @@ public class FacultyService {
         Faculty faculty = new Faculty(facultyForm);
      return facultyRepository.save(faculty);
    }
+
+    public Faculty closeFacultyById(Long id){
+        Faculty faculty = facultyRepository.findById(id).get();
+        faculty.setRecruitment(true);
+        return facultyRepository.save(faculty);
+    }
+    public Faculty openFacultyById(Long id){
+        Faculty faculty = facultyRepository.findById(id).get();
+        faculty.setRecruitment(false);
+        return facultyRepository.save(faculty);
+    }
 }

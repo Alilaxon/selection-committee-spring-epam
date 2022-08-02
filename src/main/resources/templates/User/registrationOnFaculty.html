@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>statement</title>
+    <h1>
+        <a th:text="${statementForm.getFaculty().getName()}"></a>
+    </h1>
+</head>
+<body>
+
+<form method="POST" th:action="@{/user/statement}"  th:object="${statementForm}">
+
+    <input type="hidden" th:field="*{faculty}">
+    <input type="hidden" th:field="*{user}">
+
+    <div>
+                <div th:each="subject : ${subjectList}">
+                    <input type="number" class="form-control"
+                           min = "100" max = "200"
+                           th:id="${subject.id}" th:field="*{grades}">
+
+                    <label th:for="${subject.id}">
+                        <span th:text="${subject.nameEN}"></span>
+                    </label>
+
+                </div>
+        <button type="submit" class="btn btn-primary">
+            <span th:text="'create Statement'"></span>
+        </button>
+
+    </div>
+
+
+</form>
+<a th:href="@{/user/faculties}" th:text="'back to faculties'"></a>
+</body>
+</html>

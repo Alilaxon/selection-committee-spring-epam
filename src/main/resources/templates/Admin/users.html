@@ -13,7 +13,7 @@
 
         <a th:text="'(blocked='+ ${user.getBlocked()} + ')'"></a>
 
-        <form th:method="PATCH" th:action="@{/admin/users}">
+        <form th:method="PATCH" th:action="@{/admin/user}">
 
             <input th:type="hidden" th:name="userId" th:value="${user.id}">
             <input th:type="hidden" th:name="userBlocked" th:value="${user.blocked}">

@@ -195,4 +195,13 @@ public class User implements UserDetails {
     public void setBlocked(Boolean blocked) {
         this.blocked = blocked;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

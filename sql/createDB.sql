@@ -32,6 +32,8 @@ CREATE TABLE faculties
     name         VARCHAR(50) ,
     budget_places    INT     ,
     general_places   INT     ,
+    recruitment BOOLEAN NOT NULL
+    DEFAULT FALSE,
     PRIMARY KEY (id)
 );
 
@@ -51,6 +53,31 @@ CREATE TABLE faculties_subjects
     PRIMARY KEY (id)
 );
 
+CREATE TABLE positions
+(
+    id SERIAL NOT NULL ,
+    position_name VARCHAR(50),
+        PRIMARY KEY (id)
+);
+
+    CREATE TABLE statements
+(
+    id SERIAL NOT NULL ,
+    faculty_id INT REFERENCES faculties(id),
+    user_id INT REFERENCES users(id),
+    gpa int NOT NULL ,
+    position_id INT REFERENCES positions(id),
+    PRIMARY KEY (id)
+    );
+
+INSERT INTO positions
+VALUES ( DEFAULT,'REGISTERED');
+INSERT INTO positions
+VALUES (DEFAULT,'CONTRACT');
+INSERT INTO positions
+VALUES (DEFAULT,'BUDGET');
+INSERT INTO positions
+VALUES (DEFAULT,'REJECTED');
 
 INSERT INTO roles
 values (default, 'USER');
