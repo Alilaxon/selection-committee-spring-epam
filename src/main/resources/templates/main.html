@@ -1,12 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Main page</title>
-    <h1>Selection Committee</h1>
+    <h1>
+        <a th:text="#{main.head}"></a>
+    </h1>
+
 </head>
 <body>
 <!--Стартовая страница -->
+
+<div>
+    <p th:text="#{lang.current}"></p>
+
+    <a th:href="@{'?lang=ru'}" th:text="#{lang.ru}"></a>
+    <a th:href="@{'?lang=en'}" th:text="#{lang.en}"></a>
+</div>
+
+
 <h2>
     <a sec:authorize="hasAuthority('ADMIN')"
        sec:authentication="name"
@@ -20,28 +34,37 @@
        th:href="@{'/user?userId=' + ${#authentication.getPrincipal().getId()}}">
     </a>
 </h2>
-<h2><a sec:authorize="isAuthenticated()" th:href="@{/greeting}" th:text="'greeting'"></a></h2>
-<h2><a sec:authorize="!isAuthenticated()" th:href="@{/registration/form}" th:text="'registration'"></a></h2>
-<h2><a sec:authorize="!isAuthenticated()" th:href="@{/login}" th:text="'login'"></a></h2>
-<h2><a sec:authorize="isAuthenticated()" th:href="@{/logout}" th:text="'logout'"></a></h2>
+<div>
+    <h2>
+        <div sec:authorize="!isAuthenticated()">
+            <a  th:href="@{/registration/form}" th:text="#{main.registration}"></a>
+            <br>
+            <a  th:href="@{/login}" th:text="#{main.login}"></a>
+        </div>
+
+
+        <a sec:authorize="isAuthenticated()" th:href="@{/logout}" th:text="'logout'"></a>
+    </h2>
+</div>
 <h2>
+
     <li sec:authorize="hasAuthority('ADMIN')">
-        <a th:href="@{/admin/users}" class="link-dark" th:text="Users">
+        <a th:href="@{/admin/users}" class="link-dark" th:text="#{main.users}">
         </a>
     </li>
     </br>
     <li sec:authorize="hasAuthority('ADMIN')">
-        <a th:href="@{/admin/subjects}"  th:text="Subjects">
+        <a th:href="@{/admin/subjects}" th:text="#{main.subjects}">
         </a>
     </li>
     </br>
     <li sec:authorize="hasAuthority('ADMIN')">
-        <a th:href="@{/admin/faculties}"  th:text="Faculties">
+        <a th:href="@{/admin/faculties}" th:text="#{main.faculties}">
         </a>
     </li>
 
     <li sec:authorize="hasAuthority('USER')">
-        <a th:href="@{/user/faculties}"  th:text="Faculties">
+        <a th:href="@{/user/faculties}" th:text="#{main.faculties}">
         </a>
     </li>
 </h2>

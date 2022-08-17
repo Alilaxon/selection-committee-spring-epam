@@ -1,34 +1,64 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>AllUsers</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
 </head>
 <body>
-<div th:each="user : ${users}">
-    <h3>
-        <a th:text="${user.getUsername()}+' '"></a>
+<div class="container">
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                <span th:text="'Id'"></span>
+            </th>
+            <th>
+                <span th:text="#{users.name}"></span>
+            </th>
+            <th>
+                <span th:text="#{users.email}"></span>
+            </th>
+            <th>
+                <span th:text="#{users.status}"></span>
+            </th>
+            <th>
+                <span th:text="#{common.action}"></span>
+            </th>
+        </tr>
 
-        <a th:text="'('+ ${user.getEmail()} + ')'"></a>
+        <tbody th:each="user : ${users}">
 
-        <a th:text="'(blocked='+ ${user.getBlocked()} + ')'"></a>
+        <th th:text="${user.id}"></th>
+        <td th:text="${user.getUsername()}"></td>
+        <td th:text="${user.getEmail()}"></td>
+        <td th:text="${user.getBlocked()}"></td>
+        <td>
+            <form th:method="PATCH" th:action="@{/admin/user}">
 
-        <form th:method="PATCH" th:action="@{/admin/user}">
+                <input th:type="hidden" th:name="userId" th:value="${user.id}">
+                <input th:type="hidden" th:name="userBlocked" th:value="${user.blocked}">
 
-            <input th:type="hidden" th:name="userId" th:value="${user.id}">
-            <input th:type="hidden" th:name="userBlocked" th:value="${user.blocked}">
+                <button th:type="submit" th:if="${user.blocked}">
+                    <span style="color:green" th:text="#{users.unlock}"></span>
+                </button>
 
-            <button th:type="submit" th:if="${user.blocked}">
-                <span style="color:green" th:text="'unblock'"></span>
-            </button>
+                <button th:type="submit" th:if="${!user.blocked}">
+                    <span style="color:red" th:text="#{users.block}"></span>
+                </button>
 
-            <button  th:type="submit" th:if="${!user.blocked}">
-                <span style="color:red" th:text="'block'"></span>
-            </button>
+            </form>
+        </td>
+        </tbody>
+        <h2>
+        <a th:href="@{/}" th:text="#{common.back}"></a>
+        </h2>
+    </table>
 
-        </form>
-    </h3>
 </div>
-<a href="/">back to main page</a>
 </body>
 </html>

@@ -1,14 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>AddNewFaculty</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/admin/addFaculty}" th:object="${facultyForm}">
+<form th:method="POST"
+      th:action="@{/admin/addFaculty}"
+      th:object="${facultyForm}">
+
     <label for="facultyName"> Enter name of Faculty</label>
     <input type="text" th:field="*{facultyName}" id="facultyName"/>
-    <div style="color:red" th:if="${#fields.hasErrors('facultyName')}" th:errors="*{facultyName}">name error</div>
+    <div style="color:red"
+         th:if="${#fields.hasErrors('facultyName')}"
+         th:errors="*{facultyName}">name error</div>
 
     <div style="color:blue"
          th:if="${FacultyIsReserved}"
