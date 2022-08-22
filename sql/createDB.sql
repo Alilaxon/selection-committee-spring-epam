@@ -84,6 +84,13 @@ values (default, 'USER');
 INSERT INTO roles
 values (default, 'ADMIN');
 
+INSERT INTO users VALUES (
+default,'admin','admin@gmail.com',
+'$2a$10$4xZK930e50xwPX5Vfcv51eYW7xLqcLKQre3jSGlVt4fxyTzVU9kAS',
+'Albus','Dumbledore','Mould-on-the-Wold','England',
+'Hogwarts School of Witchcraft and Wizardry',
+ false,2);
+
 
 INSERT INTO subjects
 VALUES ( default,'Astronomy','Астрономия');

@@ -1,7 +1,7 @@
 package com.epam.selectionСommitteeSpring.model.service;
 
-import com.epam.selectionСommitteeSpring.model.DTO.SubjectForm;
-import com.epam.selectionСommitteeSpring.model.Entity.Subject;
+import com.epam.selectionСommitteeSpring.model.dto.SubjectForm;
+import com.epam.selectionСommitteeSpring.model.entity.Subject;
 import com.epam.selectionСommitteeSpring.model.exception.SubjectIsReservedException;
 import com.epam.selectionСommitteeSpring.model.repository.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;

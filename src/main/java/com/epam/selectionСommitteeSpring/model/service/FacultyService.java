@@ -1,8 +1,7 @@
 package com.epam.selectionСommitteeSpring.model.service;
 
-import com.epam.selectionСommitteeSpring.model.DTO.FacultyForm;
-import com.epam.selectionСommitteeSpring.model.Entity.Faculty;
-import com.epam.selectionСommitteeSpring.model.Entity.Subject;
+import com.epam.selectionСommitteeSpring.model.dto.FacultyForm;
+import com.epam.selectionСommitteeSpring.model.entity.Faculty;
 import com.epam.selectionСommitteeSpring.model.exception.FacultyIsReservedException;
 import com.epam.selectionСommitteeSpring.model.repository.FacultyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,8 +60,7 @@ public class FacultyService {
         Faculty faculty = facultyRepository.findById(id).get();
         faculty.setRecruitment(true);
 
-        return facultyRepository
-                .save(faculty);
+        return facultyRepository.save(faculty);
     }
     public Faculty openFacultyById(Long id){
 

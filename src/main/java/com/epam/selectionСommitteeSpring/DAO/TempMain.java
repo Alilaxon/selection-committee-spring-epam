@@ -1,6 +1,6 @@
 package com.epam.selectionСommitteeSpring.DAO;
 
-import com.epam.selectionСommitteeSpring.model.DTO.UserForm;
+import com.epam.selectionСommitteeSpring.model.dto.UserForm;
 
 public class TempMain {
     public static void main(String[] args) {

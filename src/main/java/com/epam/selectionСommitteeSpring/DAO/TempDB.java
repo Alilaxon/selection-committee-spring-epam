@@ -1,6 +1,6 @@
 package com.epam.selectionСommitteeSpring.DAO;
 
-import com.epam.selectionСommitteeSpring.model.DTO.UserForm;
+import com.epam.selectionСommitteeSpring.model.dto.UserForm;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

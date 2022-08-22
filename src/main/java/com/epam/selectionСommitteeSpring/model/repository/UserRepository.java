@@ -1,6 +1,6 @@
 package com.epam.selectionСommitteeSpring.model.repository;
 
-import com.epam.selectionСommitteeSpring.model.Entity.User;
+import com.epam.selectionСommitteeSpring.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

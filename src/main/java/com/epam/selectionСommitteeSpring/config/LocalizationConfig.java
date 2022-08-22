@@ -29,7 +29,6 @@ public class LocalizationConfig implements WebMvcConfigurer {
         LocaleChangeInterceptor localeChangeInterceptor
                 = new LocaleChangeInterceptor();
         localeChangeInterceptor.setParamName("lang");
-
         return localeChangeInterceptor;
     }
 

@@ -1,6 +1,6 @@
 package com.epam.selectionСommitteeSpring.config;
 
-import com.epam.selectionСommitteeSpring.model.Entity.Role;
+import com.epam.selectionСommitteeSpring.model.entity.Role;
 import com.epam.selectionСommitteeSpring.model.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

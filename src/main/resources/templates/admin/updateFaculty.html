@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>UpdateFaculty</title>
+    <div th:replace="parts/bootstrap.html"></div>
+
+    <div th:replace="parts/language.html"></div>
+</head>
+<body>
+<form th:method="PATCH" th:action="@{/admin/updateFaculty}" th:object="${facultyForm}">
+
+<!--    Без facultyId будут появляться дубли-->
+    <input th:type="hidden" th:name="facultyId" th:field="*{id}">
+    <input th:type="hidden" th:name="recruitment" th:field="*{recruitment}">
+
+       <label th:for="facultyName" th:text="'edit name'"> </label>
+        <input type="text" th:field="*{facultyName}" id="facultyName">
+    <br/>
+
+    <label th:for="generalPlaces" th:text="'edit generalPlaces'"> </label>
+    <input type="text" th:field="*{generalPlaces}" id="generalPlaces">
+    <br/>
+
+    <label th:for="budgetPlaces" th:text="'edit budgetPlaces'"> </label>
+    <input type="text" th:field="*{budgetPlaces}" id="budgetPlaces">
+    <br/>
+
+    <div>
+
+        <tr  th:each="subject: ${subjects}">
+     <!--    type="checkbox"  Позволяет ставить галочки-->
+            <input type="checkbox"
+                   th:field="*{requiredSubjects}"
+                   th:value="${subject.id}"
+                   th:id="${subject.id}"
+            >
+
+            <label
+                    th:for="${subject.id}" th:text="${subject.nameEN}">
+            </label>
+            <br>
+
+        </tr>
+    </div>
+
+
+    <input type="submit" th:value="'Update'">
+
+
+</form>
+
+
+<a
+   th:href="@{/faculties}">
+    <label>
+        <input  th:type="button" th:value="#{faculties.back}">
+    </label>
+</a>
+</body>
+</html>

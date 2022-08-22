@@ -5,20 +5,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Main page</title>
-    <h1>
-        <a th:text="#{main.head}"></a>
-    </h1>
+
+
+    <div th:replace="parts/language.html"></div>
 
 </head>
 <body>
+<div class="container">
 <!--Стартовая страница -->
-
-<div>
-    <p th:text="#{lang.current}"></p>
-
-    <a th:href="@{'?lang=ru'}" th:text="#{lang.ru}"></a>
-    <a th:href="@{'?lang=en'}" th:text="#{lang.en}"></a>
-</div>
 
 
 <h2>
@@ -58,16 +52,12 @@
         </a>
     </li>
     </br>
-    <li sec:authorize="hasAuthority('ADMIN')">
-        <a th:href="@{/admin/faculties}" th:text="#{main.faculties}">
+    <li >
+        <a th:href="@{/faculties}" th:text="#{main.faculties}">
         </a>
     </li>
 
-    <li sec:authorize="hasAuthority('USER')">
-        <a th:href="@{/user/faculties}" th:text="#{main.faculties}">
-        </a>
-    </li>
 </h2>
-
+</div>
 </body>
 </html>

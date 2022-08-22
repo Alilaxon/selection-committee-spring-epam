@@ -1,47 +1,74 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>registration</title>
-    <h1>registration of new user</h1>
+    <h1><a th:text="#{registration.name}"></a></h1>
+
+    <div th:replace="parts/bootstrap.html"></div>
+
+    <div th:replace="parts/language.html"></div>
+
 </head>
 <body>
-<!--//                String login,-->
-<!--//                String password,-->
-<!--//                String email,-->
-<!--//                String firstname,-->
-<!--//                String surname,-->
-<!--//                String city,-->
-<!--//                String region-->
+<div class="container">
 <form th:method="POST" th:action="@{/registration}"  th:object="${userForm}">
 
-    <label  for="login"> enter login</label>
-<!--    <input type="text" name="login"  id="login" >-->
-    <input type="text" th:field="*{username}" id="login"/>
+    <label  th:for="login" th:text="#{registration.login}"></label>
+    <input th:type="text"  th:field="*{username}" th:id="login"/>
 
-    <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">name error</div>
+    <div style="color:red"
+         th:if="${#fields.hasErrors('username')}"
+         th:text="#{registration.exception.loginValid}" >
+    </div>
 
     <div style="color:blue"
             th:if="${LoginIsReserved}"
-         th:text="#{registration.exception.loginIsReserved}">
+         th:text="#{registration.exception.login}">
     </div>
     <br/>
 
-    <label for="password"> enter password</label>
-    <input name="password" th:field="*{password}"  id="password">
-    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password error</div>
+    <label th:for="password" th:text="#{registration.password}"></label>
+    <input th:type="text" th:field="*{password}"  th:id="password">
+
+    <div style="color:red"
+         th:if="${#fields.hasErrors('password')}"
+         th:text="#{registration.exception.passwordValid}">
+    </div>
     <br/>
-    <label for="email"> enter email</label>
-    <input name="email" th:field="*{email}"  id="email">
-    <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email error</div>
+    <label th:for="email" th:text="#{registration.email}"></label>
+    <input th:type="text" th:field="*{email}"  th:id="email">
+
+    <div style="color:red"
+         th:if="${#fields.hasErrors('email')}"
+         th:text="#{registration.exception.emailValid}"></div>
 
     <div style="color:blue"
          th:if="${EmailIsReserved}"
-         th:text="Email_Is_already_use">
+         th:text="#{registration.exception.email}">
     </div>
-
     <br/>
-    <input type="submit" value="create">
+    <label th:for="firstname" th:text="#{registration.firstname}"></label>
+    <input th:type="text" th:field="*{firstname}"  th:id="firstname">
+    <br/>
+    <label th:for="surname" th:text="#{registration.surname}"></label>
+    <input th:type="text" th:field="*{surname}"  th:id="surname">
+    <br/>
+    <label th:for="city" th:text="#{registration.city}"></label>
+    <input th:type="text" th:field="*{city}"  th:id="city">
+    <br/>
+    <label th:for="region" th:text="#{registration.region}"></label>
+    <input th:type="text" th:field="*{region}"  th:id="region">
+    <br/>
+    <label th:for="institution" th:text="#{registration.institution}"></label>
+    <input th:type="text" th:field="*{institution}"  th:id="institution">
+    <br/>
+
+    <input type="submit" th:value="#{registration.create}">
 </form>
+    <a th:href="@{/}" th:text="#{common.back}"></a>
+</div>
 </body>
 </html>

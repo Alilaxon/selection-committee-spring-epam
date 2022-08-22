@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>createFaculty</title>
+
+    <div th:replace="parts/bootstrap.html"></div>
+
+    <div th:replace="parts/language.html"></div>
+</head>
+<body>
+<div class="container">
+<form th:method="POST"
+      th:action="@{/admin/addFaculty}"
+      th:object="${facultyForm}">
+
+    <label th:for="facultyName" th:text="#{faculties.name}"></label>
+    <input th:type="text" th:field="*{facultyName}" th:id="facultyName"/>
+
+    <div style="color:red"
+         th:if="${#fields.hasErrors('facultyName')}"
+         th:errors="*{facultyName}">name error</div>
+
+    <div style="color:blue"
+         th:if="${FacultyIsReserved}"
+         th:text="'такой предмет уже существует'">
+    </div>
+    <br/>
+    <label th:for="budgetPlaces" th:text="#{faculties.budgetPlaces}"></label>
+    <input th:type="text" th:field="*{budgetPlaces}" th:id="budgetPlaces"/>
+
+    <div style="color:red" th:if="${#fields.hasErrors('budgetPlaces')}" th:errors="*{budgetPlaces}">budgetPlaces error
+    </div>
+    <br/>
+    <label for="generalPlaces" th:text="#{faculties.generalPlaces}"></label>
+    <input type="text" th:field="*{generalPlaces}" id="generalPlaces"/>
+    <div style="color:red" th:if="${#fields.hasErrors('generalPlaces')}" th:errors="*{generalPlaces}">generalPlaces
+    </div>
+    <br/>
+
+    <div >
+        <p th:text="#{faculties.requiredSubjects}+ ' :'"> </p>
+            <tr th:each="subject: ${subjectList}">
+
+                <input type="checkbox"
+                       th:field="*{requiredSubjects}"
+                       th:value="${subject.id}"
+                       th:id="${subject.id}"
+                >
+
+                <label
+                        th:for="${subject.id}" th:text="${subject.nameEN}">
+                </label>
+                <br>
+
+            </tr>
+        </div>
+    <input type="submit" value="create">
+
+</form>
+<a th:href="@{/faculties}" th:text="#{faculties.back}"></a>
+</div>
+</body>
+</html>

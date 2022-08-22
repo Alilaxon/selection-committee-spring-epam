@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <h1 th:text="'registration Completed'"></h1>
+    <h1 th:text="#{registration.completed}"></h1>
 </head>
 <body>
-<a href="/">back to main page</a>
+<a th:href="@{/}" th:text="#{common.back}"></a>
 </body>
 </html>

@@ -26,14 +26,17 @@
                     </label>
 
                 </div>
-        <button type="submit" class="btn btn-primary">
-            <span th:text="'create Statement'"></span>
+        <button th:if="!${UserAlreadyRegistered}" type="submit" class="btn btn-primary">
+            <span th:text="#{faculties.registration.create}"></span>
         </button>
-
+        <div style="color:blue"
+             th:if="${UserAlreadyRegistered}"
+             th:text="#{faculties.registration.exception}">
+        </div>
     </div>
 
 
 </form>
-<a th:href="@{/user/faculties}" th:text="'back to faculties'"></a>
+<a th:href="@{/faculties}" th:text="#{faculties.registration.back}"></a>
 </body>
 </html>

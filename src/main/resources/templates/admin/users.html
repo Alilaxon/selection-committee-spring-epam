@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>users</title>
+
+    <div th:replace="parts/bootstrap.html"></div>
+
+    <div th:replace="parts/language.html"></div>
+</head>
+<body>
+<div class="container">
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                <span th:text="'Id'"></span>
+            </th>
+            <th>
+                <span th:text="#{users.name}"></span>
+            </th>
+            <th>
+                <span th:text="#{users.email}"></span>
+            </th>
+            <th>
+                <span th:text="#{users.status}"></span>
+            </th>
+            <th>
+                <span th:text="#{common.action}"></span>
+            </th>
+        </tr>
+
+        <tbody th:each="user : ${users}">
+
+        <th th:text="${user.id}"></th>
+        <td th:text="${user.getUsername()}"></td>
+        <td th:text="${user.getEmail()}"></td>
+        <td th:text="${user.getBlocked()}"></td>
+        <td>
+            <form th:method="PATCH" th:action="@{/admin/user}">
+
+                <input th:type="hidden" th:name="userId" th:value="${user.id}">
+                <input th:type="hidden" th:name="userBlocked" th:value="${user.blocked}">
+
+                <button th:type="submit" th:if="${user.blocked}">
+                    <span style="color:green" th:text="#{users.unlock}"></span>
+                </button>
+
+                <button th:type="submit" th:if="${!user.blocked}">
+                    <span style="color:red" th:text="#{users.block}"></span>
+                </button>
+
+            </form>
+        </td>
+        </tbody>
+        <h2>
+        <a th:href="@{/}" th:text="#{common.back}"></a>
+        </h2>
+    </table>
+
+</div>
+</body>
+</html>

@@ -1,12 +1,13 @@
 package com.epam.selectionСommitteeSpring.model.service;
 
 
-import com.epam.selectionСommitteeSpring.controller.util.AverageGrade;
-import com.epam.selectionСommitteeSpring.model.DTO.StatementForm;
-import com.epam.selectionСommitteeSpring.model.Entity.Faculty;
-import com.epam.selectionСommitteeSpring.model.Entity.Position;
-import com.epam.selectionСommitteeSpring.model.Entity.Statement;
-import com.epam.selectionСommitteeSpring.model.Entity.User;
+import com.epam.selectionСommitteeSpring.controllers.util.AverageGrade;
+import com.epam.selectionСommitteeSpring.model.dto.StatementForm;
+import com.epam.selectionСommitteeSpring.model.entity.Faculty;
+import com.epam.selectionСommitteeSpring.model.entity.Position;
+import com.epam.selectionСommitteeSpring.model.entity.Statement;
+import com.epam.selectionСommitteeSpring.model.entity.User;
+import com.epam.selectionСommitteeSpring.model.exception.UserAlreadyRegisteredException;
 import com.epam.selectionСommitteeSpring.model.repository.PositionRepository;
 import com.epam.selectionСommitteeSpring.model.repository.StatementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,9 @@ public class StatementService {
         this.positionRepository = positionRepository;
     }
 
-    public void addStatement(StatementForm statementForm){
+    public void addStatement(StatementForm statementForm) throws UserAlreadyRegisteredException {
+        checkIfRegistered(statementForm);
+
         Statement statement = new Statement();
         statement.setUserId(statementForm.getUser());
         statement.setFacultyId(statementForm.getFaculty());
@@ -71,6 +74,18 @@ public class StatementService {
 
 
         statementRepository.saveAll(statements);
+
+    }
+    private void checkIfRegistered(StatementForm statementForm) throws UserAlreadyRegisteredException {
+
+        if(statementRepository.existsByUserIdAndAndFacultyId(statementForm.getUser(),statementForm.getFaculty())){
+            throw new UserAlreadyRegisteredException();
+        }
+
+    }
+    public boolean checkIfRegistered(User user, Faculty faculty)  {
+
+        return statementRepository.existsByUserIdAndAndFacultyId(user,faculty);
 
     }
 }
