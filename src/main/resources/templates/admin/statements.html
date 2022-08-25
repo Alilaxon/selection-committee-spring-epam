@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Statements</title>
+    <div th:replace="parts/bootstrap.html"></div>
+
+    <div th:replace="parts/language.html"></div>
+</head>
+<body>
+
+<div class="container">
+    <h1><a th:text="${facultyName}"></a></h1>
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                <span th:text="#{statements.id}"></span>
+            </th>
+            <th>
+                <span th:text="#{statements.username}"></span>
+            </th>
+            <th>
+                <span th:text="#{statements.position}"></span>
+            </th>
+
+        </tr>
+
+        <tbody th:each="statement : ${statements}">
+
+        <th th:text="${statement.id}"></th>
+        <td th:text="${statement.userId.getUsername()}"></td>
+        <td th:text="${statement.position_id.positionType.name()}"></td>
+
+        </tbody>
+        <h2>
+
+            <a th:href="@{/faculties}" th:text="#{faculties.back}" ></a>
+        </h2>
+    </table>
+</div>
+</body>
+</html>

@@ -1,6 +1,5 @@
 package com.epam.selectionСommitteeSpring.model.builders;
 
-import com.epam.selectionСommitteeSpring.model.dto.FacultyForm;
 import com.epam.selectionСommitteeSpring.model.entity.Faculty;
 import com.epam.selectionСommitteeSpring.model.entity.Subject;
 
@@ -20,6 +19,7 @@ public class FacultyBuilder {
     private List<Subject> requiredSubjects;
 
     public static FacultyBuilder builder(){
+
         return new FacultyBuilder();
     }
 
@@ -54,7 +54,8 @@ public class FacultyBuilder {
     }
 
     public Faculty build(){
-        return new Faculty(id,facultyName,budgetPlaces,generalPlaces,requiredSubjects,recruitment);
+        return new Faculty(id,facultyName,budgetPlaces,
+                generalPlaces,requiredSubjects,recruitment);
     }
 
 }

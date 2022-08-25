@@ -23,7 +23,6 @@ public class FacultyService {
         faculty.setSubjects(facultyForm.getRequiredSubjects());
         faculty.setRecruitment(false);
 
-
         return facultyRepository.save(faculty);
     }
 

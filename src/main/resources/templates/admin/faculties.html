@@ -112,6 +112,12 @@
                             <input type="button" th:value="#{common.edit}">
                         </a>
                     </form>
+                    <form>
+                        <a sec:authorize="hasAuthority('ADMIN')"
+                           th:href="@{'/admin/statements?facultyId='+${faculty.getId}}"
+                           th:text="#{faculties.statements}"></a>
+                        <br/>
+                    </form>
 
                     <form th:method="PATCH"
                           th:action="@{/admin/recruitment}">
@@ -149,6 +155,7 @@
            th:href="@{/admin/addFaculty}"
            th:text="#{faculties.addFaculty}"></a>
         <br/>
+
 
         <a th:href="@{/}" th:text="#{common.back}"></a>
     </h2>

@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
@@ -54,7 +55,7 @@ public class UserService implements UserDetailsService {
                 .build());
     }
 
-    public void checkUsername(String login)
+    private void checkUsername(String login)
             throws UsernameIsReservedException {
 
         if (userRepository.existsUserByUsername(login)) {
@@ -62,7 +63,7 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public void checkEmail(String email)
+    private void checkEmail(String email)
             throws EmailIsReservedException {
 
         if (userRepository.existsByEmail(email)) {
@@ -70,7 +71,7 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public User findByUsername(String username) {
+    private User findByUsername(String username) {
 
         return userRepository.findByUsername(username);
 

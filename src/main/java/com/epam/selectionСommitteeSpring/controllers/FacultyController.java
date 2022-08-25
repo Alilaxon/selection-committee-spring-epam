@@ -2,6 +2,7 @@ package com.epam.selectionСommitteeSpring.controllers;
 
 import com.epam.selectionСommitteeSpring.controllers.util.FacultyUrl;
 import com.epam.selectionСommitteeSpring.controllers.util.Sorter;
+import com.epam.selectionСommitteeSpring.controllers.util.enums.FacultyUrls;
 import com.epam.selectionСommitteeSpring.model.entity.Faculty;
 import com.epam.selectionСommitteeSpring.model.entity.Subject;
 import com.epam.selectionСommitteeSpring.model.builders.FacultyFormBuilder;

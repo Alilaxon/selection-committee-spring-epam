@@ -20,6 +20,7 @@ public class FacultyFormBuilder {
     private List<Subject> requiredSubjects;
 
     public static FacultyFormBuilder builder(){
+
         return new FacultyFormBuilder();
     }
 
@@ -54,6 +55,7 @@ public class FacultyFormBuilder {
     }
 
     public FacultyForm build(){
-        return new FacultyForm(id,facultyName,budgetPlaces,generalPlaces,requiredSubjects,recruitment);
+        return new FacultyForm(id,facultyName,budgetPlaces,
+                generalPlaces,requiredSubjects,recruitment);
     }
 }
