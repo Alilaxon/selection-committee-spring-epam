@@ -7,9 +7,9 @@
     <title>UpdateFaculty</title>
     <div th:replace="parts/bootstrap.html"></div>
 
-    <div th:replace="parts/language.html"></div>
 </head>
 <body>
+<div class="container">
 <form th:method="PATCH" th:action="@{/admin/updateFaculty}" th:object="${facultyForm}">
 
 <!--    Без facultyId будут появляться дубли-->
@@ -18,6 +18,10 @@
 
        <label th:for="facultyName" th:text="'edit name'"> </label>
         <input type="text" th:field="*{facultyName}" id="facultyName">
+    <div style="color:blue"
+         th:if="${FacultyIsReserved}"
+         th:text="#{faculties.exception.FacultyIsReserved}">
+    </div>
     <br/>
 
     <label th:for="generalPlaces" th:text="'edit generalPlaces'"> </label>
@@ -59,5 +63,6 @@
         <input  th:type="button" th:value="#{faculties.back}">
     </label>
 </a>
+</div>
 </body>
 </html>

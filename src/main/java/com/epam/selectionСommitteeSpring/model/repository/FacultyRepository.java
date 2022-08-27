@@ -9,6 +9,10 @@ public interface FacultyRepository extends JpaRepository<Faculty,Long> {
 
     boolean existsByName(String name);
 
+    Faculty findByName(String name);
+
+    boolean existsByNameAndAndId(String name,Long id);
+
 
 
 

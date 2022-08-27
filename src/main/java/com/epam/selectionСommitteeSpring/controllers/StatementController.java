@@ -25,7 +25,7 @@ public class StatementController {
         Faculty faculty = facultyService.getFaculty(facultyId);
 
         model.addAttribute("statements",statementService.findAllStatementsByFaculty(faculty))
-                .addAttribute("facultyName",faculty.getName());
+             .addAttribute("facultyName",faculty.getName());
 
         return "admin/statements";
     }

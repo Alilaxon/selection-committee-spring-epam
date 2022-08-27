@@ -8,6 +8,8 @@ import com.epam.selectionСommitteeSpring.model.exception.EmailIsReservedExcepti
 import com.epam.selectionСommitteeSpring.model.exception.UsernameIsReservedException;
 import com.epam.selectionСommitteeSpring.model.repository.RoleRepository;
 import com.epam.selectionСommitteeSpring.model.repository.UserRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,9 +24,12 @@ import java.util.List;
 
 @Service
 public class UserService implements UserDetailsService {
+
+    private static final Logger log = LogManager.getLogger(UserService.class);
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+
 
     @Autowired
     public UserService(UserRepository userRepository,
@@ -40,6 +45,8 @@ public class UserService implements UserDetailsService {
 
         checkUsername(userForm.getUsername());
         checkEmail(userForm.getEmail());
+
+        log.info("User '{}' was created", userForm.getUsername());
 
         return userRepository.save(UserBuilder.builder()
                 .username(userForm.getUsername())
@@ -59,7 +66,10 @@ public class UserService implements UserDetailsService {
             throws UsernameIsReservedException {
 
         if (userRepository.existsUserByUsername(login)) {
+
+            log.warn(" '{}' is reserved", login);
             throw new UsernameIsReservedException();
+
         }
     }
 
@@ -67,6 +77,9 @@ public class UserService implements UserDetailsService {
             throws EmailIsReservedException {
 
         if (userRepository.existsByEmail(email)) {
+
+            log.warn(" '{}' is reserved", email);
+
             throw new EmailIsReservedException();
         }
     }
@@ -86,13 +99,10 @@ public class UserService implements UserDetailsService {
             throws UsernameNotFoundException {
         User user = findByUsername(username);
         if (user == null) {
+            log.warn(" '{}' not found", username);
             throw new UsernameNotFoundException("User not found");
         }
         return user;
-//                org.springframework.security.core.userdetails.User(
-//                user.getUsername(),
-//                user.getPassword(),
-//                getAuthorities(user.getRole()));
     }
 
 
@@ -106,17 +116,20 @@ public class UserService implements UserDetailsService {
     }
 
     public User blockUserById(Long id) {
+
         User user = userRepository.findById(id).get();
         user.setBlocked(true);
+        log.info(" '{}' is blocked", user.getUsername());
         return userRepository.save(user);
     }
 
     public User unblockUserById(Long id) {
+
         User user = userRepository.findById(id).get();
         user.setBlocked(false);
+        log.info(" '{}' is unblocked", user.getUsername());
+
         return userRepository.save(user);
+
     }
-//    public Collection<? extends GrantedAuthority> getAuthorities(Role role) {
-//        return Collections.singleton(new SimpleGrantedAuthority(role.getRoleName().name()));
-//    }
 }

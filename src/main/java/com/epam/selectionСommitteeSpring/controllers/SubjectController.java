@@ -6,6 +6,8 @@ import com.epam.selectionСommitteeSpring.model.entity.Subject;
 import com.epam.selectionСommitteeSpring.model.dto.SubjectForm;
 import com.epam.selectionСommitteeSpring.model.exception.SubjectIsReservedException;
 import com.epam.selectionСommitteeSpring.model.service.SubjectService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,7 @@ import javax.validation.Valid;
 @Controller
 public class SubjectController {
 
+    private static final Logger log = LogManager.getLogger(SubjectController.class);
     private final SubjectService subjectService;
     @Autowired
     public SubjectController(SubjectService subjectService) {
@@ -62,15 +65,16 @@ public class SubjectController {
         if (bindingResult.hasErrors()) {
 
             return "/admin/createSubject";
-        }
 
-        try {
-            subjectService.addNewSubject(subjectForm);
+        } try {
+            subjectService.createSubject(subjectForm);
 
             return "redirect:/admin/subjects";
 
         } catch (SubjectIsReservedException exception) {
+
             model.addAttribute("SubjectIsReserved", true);
+            log.warn("Subject name '{}' is reserved", subjectForm.getNameEN());
 
             return "/admin/createSubject";
         }

@@ -103,4 +103,13 @@ public class FacultyForm {
 
         this.recruitment = recruitment;
     }
+
+    @Override
+    public String toString() {
+        return "FacultyForm{" +
+                "id=" + id +
+                ", facultyName='" + facultyName + '\'' +
+                ", recruitment=" + recruitment +
+                '}';
+    }
 }

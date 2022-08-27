@@ -10,6 +10,8 @@ import com.epam.selectionСommitteeSpring.model.entity.User;
 import com.epam.selectionСommitteeSpring.model.exception.UserAlreadyRegisteredException;
 import com.epam.selectionСommitteeSpring.model.repository.PositionRepository;
 import com.epam.selectionСommitteeSpring.model.repository.StatementRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 @Service
 public class StatementService {
 
+    private static final Logger log = LogManager.getLogger(StatementService.class);
     StatementRepository statementRepository;
     PositionRepository positionRepository;
 
@@ -38,6 +41,8 @@ public class StatementService {
         statement.setFacultyId(statementForm.getFaculty());
         statement.setPosition_id(positionRepository.findByPositionType(Position.PositionType.REGISTERED));
         statement.setGradePointAverage(AverageGrade.counter(statementForm.getGrades()));
+
+        log.info("User '{}'  created statement", statementForm.getUser().getUsername());
 
         statementRepository.save(statement);
     }
@@ -72,6 +77,7 @@ public class StatementService {
                         positionRepository.findByPositionType(Position.PositionType.BUDGET)
                 ));
 
+        log.info("faculty '{}'  finalized results", faculty.getName());
 
         statementRepository.saveAll(statements);
 

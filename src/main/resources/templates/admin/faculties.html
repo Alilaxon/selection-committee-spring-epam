@@ -9,6 +9,10 @@
     <div th:replace="parts/bootstrap.html"></div>
 
     <div th:replace="parts/language.html"></div>
+
+    <div sec:authorize="!isAuthenticated()">
+        <a  th:href="@{/login}" th:text="#{main.login}"></a>
+    </div>
 </head>
 <body>
 <div class="container">

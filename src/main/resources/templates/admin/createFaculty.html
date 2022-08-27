@@ -15,6 +15,8 @@
       th:action="@{/admin/addFaculty}"
       th:object="${facultyForm}">
 
+
+
     <label th:for="facultyName" th:text="#{faculties.name}"></label>
     <input th:type="text" th:field="*{facultyName}" th:id="facultyName"/>
 
@@ -24,7 +26,7 @@
 
     <div style="color:blue"
          th:if="${FacultyIsReserved}"
-         th:text="'такой предмет уже существует'">
+         th:text="#{faculties.exception.FacultyIsReserved}">
     </div>
     <br/>
     <label th:for="budgetPlaces" th:text="#{faculties.budgetPlaces}"></label>
@@ -41,6 +43,7 @@
 
     <div >
         <p th:text="#{faculties.requiredSubjects}+ ' :'"> </p>
+        <p th:text="#{faculties.addFaculty.subjectsMinValue}"></p>
             <tr th:each="subject: ${subjectList}">
 
                 <input type="checkbox"

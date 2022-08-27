@@ -11,9 +11,9 @@ public class SubjectBuilder {
 
     private String nameRU;
 
-    public static UserBuilder builder(){
+    public static SubjectBuilder builder(){
 
-        return new UserBuilder();
+        return new SubjectBuilder();
     }
 
     public SubjectBuilder id(Long id) {
