@@ -8,31 +8,38 @@
     <meta charset="UTF-8">
     <title>createSubject</title>
     <div th:replace="parts/bootstrap.html"></div>
-
+    <div th:replace="parts/springBootstrap.html"></div>
     <div th:replace="parts/language.html"></div>
 </head>
 <body>
-<form th:method="POST" th:action="@{/admin/addSubject}"  th:object="${subjectFrom}">
+<div>
+<form class="form-signin" th:method="POST" th:action="@{/admin/addSubject}"  th:object="${subjectFrom}">
 
-    <label for="nameEN"> enter nameEN</label>
-    <input type="text" th:field="*{nameEN}" id="nameEN"/>
-    <div style="color:red" th:if="${#fields.hasErrors('nameEN')}" th:errors="*{nameEN}">name error</div>
+    <label th:for="nameEN" th:text="#{subjects.nameEN}"></label>
+    <input th:type="text" class="form-control" th:field="*{nameEN}" id="nameEN"/>
+    <div style="color:red" th:if="${#fields.hasErrors('nameEN')}" th:text="#{subjects.valid}"></div>
 
     <div style="color:blue"
          th:if="${SubjectIsReserved}"
-         th:text="'такой предмет уже существует'">
+         th:text="#{subjects.exception}">
     </div>
 
 
-    <label for="nameRU"> enter nameRU</label>
-    <input type="text" th:field="*{nameRU}" id="nameRU"/>
-    <div style="color:red" th:if="${#fields.hasErrors('nameRU')}" th:errors="*{nameRU}">name error</div>
+    <label th:for="nameRU" th:text="#{subjects.nameRU}"></label>
+    <input th:type="text" class="form-control" th:field="*{nameRU}" id="nameRU"/>
+    <div style="color:red" th:if="${#fields.hasErrors('nameRU')}" th:text="#{subjects.valid}"></div>
 
     <br/>
-    <input type="submit" value="create">
+
+    <button class="btn btn-lg btn-primary btn-block"
+            th:type="submit"
+            th:text="#{common.create}"></button>
 </form>
 <div>
-<a th:href="@{/admin/subjects}"  th:text="'back to page subjects'"></a>
+<a class="btn btn-primary"
+   th:href="@{/admin/subjects}"
+   th:text="#{subjects.back}"></a>
+</div>
 </div>
 </body>
 </html>

@@ -45,14 +45,6 @@ public class UserController {
         User user = userService.findUserById(id);
 
         List<Statement> statements = statementService.findAllStatementsByUserId(user);
-        System.out.println(user.getUsername() + " " + user.getEmail());
-
-        for (Statement statement : statements) {
-            System.out.println(statement.getFacultyId().getName() + "\n" +
-                    statement.getPosition_id().getPositionType().name());
-
-        }
-
 
         model.addAttribute("statements", statements);
         model.addAttribute("userProfile", user);
@@ -88,11 +80,8 @@ public class UserController {
     public String createStatement(@ModelAttribute("statementForm")
                                   StatementForm statementForm,
                                   Model model)  {
-        System.out.println(statementForm.getUser().toString());
-        System.out.println(statementForm.getFaculty().toString());
 
         try {
-
             statementService.addStatement(statementForm);
             return "redirect:/faculties";
 

@@ -6,162 +6,165 @@
     <meta charset="UTF-8">
     <title>Faculties</title>
 
-    <div th:replace="parts/bootstrap.html"></div>
+    <div  th:replace="parts/bootstrap.html"></div>
 
-    <div th:replace="parts/language.html"></div>
+    <div th:replace="parts/header.html"></div>
 
-    <div sec:authorize="!isAuthenticated()">
-        <a  th:href="@{/login}" th:text="#{main.login}"></a>
-    </div>
 </head>
 <body>
-<div class="container">
+<div class="container" >
     <div>
         <h5>
             <a th:if="${order.equals('asc')}" th:text="#{faculties.sort} + ' ↑'"></a>
             <a th:if="${order.equals('desc')}" th:text="#{faculties.sort} + ' ↓'"></a>
         </h5>
-        <ul>
-            <li>
-                <a th:if="${order.equals('asc')}"
-                   th:href="@{'/faculties?sort=name&order=desc'}">
-                    <label>
-                        <input style="color:green"
-                               th:type="button"
-                               th:value="#{faculties.sortByName}">
-                    </label>
+        <ul >
+            <li >
+                <a class="btn btn-secondary"
+                   th:if="${order.equals('asc')}"
+                   th:href="@{'/faculties?sort=name&order=desc'}"
+                   th:text="#{faculties.sortByName}">
                 </a>
-                <a th:if="${order.equals('desc')}"
-                   th:href="@{'/faculties?sort=name&order=asc'}">
-                    <label>
-                        <input style="color:blue"
-                               th:type="button"
-                               th:value="#{faculties.sortByName}">
-                    </label>
+                <a class="btn btn-secondary"
+                   th:if="${order.equals('desc')}"
+                   th:href="@{'/faculties?sort=name&order=asc'}"
+                   th:text="#{faculties.sortByName}">
                 </a>
             </li>
             <li>
-                <a th:if="${order.equals('asc')}"
-                   th:href="@{'/faculties?sort=generalPlaces&order=desc'}">
-                    <label>
-                        <input style="color:green"
-                               th:type="button"
-                               th:value="#{faculties.sortByGeneralPlaces}">
-                    </label>
+                <a class="btn btn-secondary"
+                   th:if="${order.equals('asc')}"
+                   th:href="@{'/faculties?sort=generalPlaces&order=desc'}"
+                   th:text="#{faculties.sortByGeneralPlaces}">
                 </a>
-                <a th:if="${order.equals('desc')}"
-                   th:href="@{'/faculties?sort=generalPlaces&order=asc'}">
-                    <label>
-                        <input style="color:blue"
-                               th:type="button"
-                               th:value="#{faculties.sortByGeneralPlaces}">
-                    </label>
+                <a class="btn btn-secondary"
+                   th:if="${order.equals('desc')}"
+                   th:href="@{'/faculties?sort=generalPlaces&order=asc'}"
+                   th:text="#{faculties.sortByGeneralPlaces}">
                 </a>
             </li>
             <li>
-                <a th:if="${order.equals('asc')}"
-                   th:href="@{'/faculties?sort=budgetPlaces&order=desc'}">
-                    <label>
-                        <input style="color:green"
-                               th:type="button"
-                               th:value="#{faculties.sortByBudgetPlaces}">
-                    </label>
-
+                <a class="btn btn-secondary"
+                   th:if="${order.equals('asc')}"
+                   th:href="@{'/faculties?sort=budgetPlaces&order=desc'}"
+                   th:text="#{faculties.sortByBudgetPlaces}">
                 </a>
 
-                <a th:if="${order.equals('desc')}"
-                   th:href="@{'/faculties?sort=budgetPlaces&order=asc'}">
-                    <label>
-                        <input style="color:blue"
-                               th:type="button"
-                               th:value="#{faculties.sortByBudgetPlaces}">
-                    </label>
+                <a class="btn btn-secondary"
+                   th:if="${order.equals('desc')}"
+                   th:href="@{'/faculties?sort=budgetPlaces&order=asc'}"
+                   th:text="#{faculties.sortByBudgetPlaces}">
                 </a>
             </li>
         </ul>
         <hr>
     </div>
-    <div class="row row-cols-4 row-cols-md-3 g-4">
+    <div class="row row-cols-4 row-cols-md-4 g-4">
         <div th:each="faculty : ${faculties}">
-            <div class="card h-100">
-
-                <p th:text="#{faculties.name} +': ' + ${faculty.getName}"></p>
-                <p th:text="#{faculties.budgetPlaces} +': '+ ${faculty.getBudgetPlaces()}"></p>
-                <p th:text="#{faculties.generalPlaces} +': '+ ${faculty.getGeneralPlaces()}"></p>
-                <p th:text="#{faculties.requiredSubjects}+': '"></p>
-
-
-                <div th:each="subject : ${faculty.getSubjects()}">
-
-                    <a style="color:green" th:text="${subject.getNameEN()}+' '">en</a>
-
-
+            <div class="card h-100" style="background-color: cornsilk">
+                <div class="card-header">
+                    <h3>
+                        <p class="card-title"
+                           th:text="${faculty.getName}">
+                        </p>
+                    </h3>
                 </div>
-                <div sec:authorize="hasAuthority('USER')">
-                    <div th:if="${!faculty.getRecruitment()}">
-                        <a th:href="@{'/user/statement?facultyId='+ ${faculty.getId()}}">
-                            <input type="button" th:value="#{faculties.registration}">
+                <div class="card-body">
+                    <h4>
+                        <p th:text="#{faculties.budgetPlaces} +': '+ ${faculty.getBudgetPlaces()}"></p>
+                        <p th:text="#{faculties.generalPlaces} +': '+ ${faculty.getGeneralPlaces()}"></p>
+                        <p th:text="#{faculties.requiredSubjects}+': '"></p>
+                    </h4>
+                    <div th:each="subject : ${faculty.getSubjects()}">
+                        <h5>
+                            <a style="color:green"
+                               th:text="${subject.getNameEN()}">
+                            </a>
+                        </h5>
 
-                        </a>
                     </div>
-                </div>
-                <div sec:authorize="hasAuthority('ADMIN')">
-                    <form th:method="DELETE"
-                          th:action="@{/admin/faculty/{id}(id=${faculty.getId})} ">
-                        <input type="submit" th:value="#{common.delete}">
-                    </form>
-                    <form>
+                    <div sec:authorize="hasAuthority('USER')">
+                        <div th:if="${!faculty.getRecruitment()}">
+                            <a th:href="@{'/user/statement?facultyId='+ ${faculty.getId()}}">
+                                <input type="button" th:value="#{faculties.registration}">
 
-                        <a th:href="@{'/admin/updateFaculty?facultyId='+${faculty.getId}}">
-                            <input type="button" th:value="#{common.edit}">
-                        </a>
-                    </form>
-                    <form>
-                        <a sec:authorize="hasAuthority('ADMIN')"
-                           th:href="@{'/admin/statements?facultyId='+${faculty.getId}}"
-                           th:text="#{faculties.statements}"></a>
-                        <br/>
-                    </form>
+                            </a>
+                        </div>
+                    </div>
 
-                    <form th:method="PATCH"
-                          th:action="@{/admin/recruitment}">
-                        <input th:type="hidden"
-                               th:name="facultyId"
-                               th:value="${faculty.getId()}">
-                        <input th:type="hidden"
-                               th:name="facultyOpen"
-                               th:value="${faculty.getRecruitment()}">
+                    <!--                    <input th:type="hidden"-->
+                    <!--                           th:name="facultyId"-->
+                    <!--                           th:value="${faculty.getId()}">-->
+                    <div sec:authorize="hasAuthority('ADMIN')">
+                        <form th:method="DELETE"
+                              th:action="@{/admin/faculty/{id}(id=${faculty.getId})}">
+                            <button class="btn btn-secondary"
+                                    th:type="submit"
+                                    th:text="#{common.delete}">
+                            </button>
+                        </form>
+                        <form>
+                            <a class="btn btn-secondary"
+                               th:href="@{'/admin/updateFaculty?facultyId='+${faculty.getId}}"
+                               th:text="#{common.edit}">
+                                <!--                            <input type="button" th:value="#{common.edit}">-->
+                            </a>
+                        </form>
+                        <form>
+                            <a class="btn btn-secondary"
+                               sec:authorize="hasAuthority('ADMIN')"
+                               th:href="@{'/admin/statements?facultyId='+${faculty.getId}}"
+                               th:text="#{faculties.statements}"></a>
+                            <br/>
+                        </form>
+
+                        <form th:method="PATCH"
+                              th:action="@{/admin/recruitment}">
+                            <input th:type="hidden"
+                                   th:name="facultyId"
+                                   th:value="${faculty.getId()}">
+                            <input th:type="hidden"
+                                   th:name="facultyOpen"
+                                   th:value="${faculty.getRecruitment()}">
 
 
-                        <button th:type="submit"
-                                th:if="${faculty.getRecruitment()} ">
+                            <button class="btn btn-success"
+                                    th:type="submit"
+                                    th:if="${faculty.getRecruitment()} "
+                                    th:text="#{faculties.open}">
 
-                            <span style="color:green"
-                                  th:text="#{faculties.open}">
-                            </span>
-                        </button>
+                                <!--                            <span class="btn btn-success"-->
+                                <!--                                  th:text="#{faculties.open}">-->
+                                <!--                            </span>-->
+                            </button>
 
-                        <button th:type="submit"
-                                th:if="${!faculty.getRecruitment()}">
-
-                            <span style="color:red"
-                                  th:text="#{faculties.close}">
-                            </span>
-                        </button>
-                    </form>
+                            <button class="btn btn-danger"
+                                    th:type="submit"
+                                    th:if="${!faculty.getRecruitment()}"
+                                    th:text="#{faculties.close}">
+                                <!--                            <span class="btn btn-danger"-->
+                                <!--                                    style="color:red"-->
+                                <!--                                  th:text="#{faculties.close}">-->
+                                <!--                            </span>-->
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <h2>
 
-        <a sec:authorize="hasAuthority('ADMIN')"
+        <a class="btn btn-secondary"
+           sec:authorize="hasAuthority('ADMIN')"
            th:href="@{/admin/addFaculty}"
            th:text="#{faculties.addFaculty}"></a>
         <br/>
 
 
-        <a th:href="@{/}" th:text="#{common.back}"></a>
+        <a class="btn btn-secondary"
+           th:href="@{/}"
+           th:text="#{common.back}"></a>
     </h2>
 </div>
 </body>

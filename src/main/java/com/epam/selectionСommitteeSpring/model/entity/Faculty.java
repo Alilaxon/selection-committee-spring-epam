@@ -47,15 +47,6 @@ public class Faculty {
         this.recruitment = recruitment;
     }
 
-    public Faculty(FacultyForm facultyForm) {
-        this.id = facultyForm.getId();
-        this.name = facultyForm.getFacultyName();
-        this.budgetPlaces = facultyForm.getBudgetPlaces();
-        this.generalPlaces = facultyForm.getGeneralPlaces();
-        this.subjects = facultyForm.getRequiredSubjects();
-        this.recruitment = facultyForm.getRecruitment();
-    }
-
     public Long getId() {
         return id;
     }

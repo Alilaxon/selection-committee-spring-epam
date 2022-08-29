@@ -21,6 +21,15 @@
                 <span th:text="#{statements.username}"></span>
             </th>
             <th>
+                <span th:text="#{statements.firstname}"></span>
+            </th>
+            <th>
+                <span th:text="#{statements.surname}"></span>
+            </th>
+            <th>
+                <span th:text="#{statements.gradePointAverage}"></span>
+            </th>
+            <th>
                 <span th:text="#{statements.position}"></span>
             </th>
 
@@ -30,12 +39,17 @@
 
         <th th:text="${statement.id}"></th>
         <td th:text="${statement.userId.getUsername()}"></td>
+        <td th:text="${statement.userId.getFirstname()}"></td>
+        <td th:text="${statement.userId.getSurname()}"></td>
+        <td th:text="${statement.getGradePointAverage()}"></td>
         <td th:text="${statement.position_id.positionType.name()}"></td>
 
         </tbody>
         <h2>
 
-            <a th:href="@{/faculties}" th:text="#{faculties.back}" ></a>
+            <a class="btn btn-primary"
+               th:href="@{/faculties}"
+               th:text="#{faculties.back}" ></a>
         </h2>
     </table>
 </div>

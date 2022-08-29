@@ -7,7 +7,7 @@
     <title>Subjects</title>
     <div th:replace="parts/bootstrap.html"></div>
 
-    <div th:replace="parts/language.html"></div>
+    <div th:replace="parts/header.html"></div>
 
 </head>
 <body>
@@ -27,6 +27,13 @@
                 <span th:text="#{common.action}"></span>
             </th>
         </tr>
+<!--        <form th:method="DELETE"-->
+<!--              th:action="@{/admin/faculty/{id}(id=${faculty.getId})}">-->
+<!--            <button class="btn btn-secondary"-->
+<!--                    th:type="submit"-->
+<!--                    th:text="#{common.delete}">-->
+<!--            </button>-->
+<!--        </form>-->
 
 <tbody th:each="subject : ${subjects}">
 
@@ -36,14 +43,20 @@
         <td>
         <form th:method="DELETE"
               th:action="@{/admin/subject/{id}(id=${subject.getId})} " >
-            <input type = "submit" th:value="#{common.delete}">
+            <button class="btn btn-danger"
+                    th:type = "submit"
+                    th:text="#{common.delete}"></button>
         </form>
         </td>
 </tbody>
 <h2>
-    <a th:href="@{/admin/addSubject}" th:text="#{subjects.addSubject}"></a>
+    <a class="btn btn-primary"
+       th:href="@{/admin/addSubject}"
+       th:text="#{subjects.addSubject}"></a>
     </br>
-    <a th:href="@{/}" th:text="#{common.back}" ></a>
+    <a class="btn btn-primary"
+       th:href="@{/}"
+       th:text="#{common.back}" ></a>
 </h2>
 </table>
 </div>

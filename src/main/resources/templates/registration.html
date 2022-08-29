@@ -5,19 +5,25 @@
 <head>
     <meta charset="UTF-8">
     <title>registration</title>
-    <h1><a th:text="#{registration.name}"></a></h1>
+
+    <div th:replace="parts/springBootstrap.html"></div>
 
     <div th:replace="parts/bootstrap.html"></div>
 
     <div th:replace="parts/language.html"></div>
 
+<!--    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">-->
+
 </head>
 <body>
 <div class="container">
-<form th:method="POST" th:action="@{/registration}"  th:object="${userForm}">
+
+<form class="form-signin" th:method="POST" th:action="@{/registration}"  th:object="${userForm}">
+
+    <h1 class="form-signin-heading"  th:text="#{registration.name}"></h1>
 
     <label  th:for="login" th:text="#{registration.login}"></label>
-    <input th:type="text"  th:field="*{username}" th:id="login"/>
+    <input th:type="text" class="form-control"   th:field="*{username}" th:id="login"/>
 
     <div style="color:red"
          th:if="${#fields.hasErrors('username')}"
@@ -31,7 +37,7 @@
     <br/>
 
     <label th:for="password" th:text="#{registration.password}"></label>
-    <input th:type="text" th:field="*{password}"  th:id="password">
+    <input th:type="text" class="form-control" th:field="*{password}"  th:id="password">
 
     <div style="color:red"
          th:if="${#fields.hasErrors('password')}"
@@ -39,7 +45,7 @@
     </div>
     <br/>
     <label th:for="email" th:text="#{registration.email}"></label>
-    <input th:type="text" th:field="*{email}"  th:id="email">
+    <input th:type="text" class="form-control" th:field="*{email}"  th:id="email">
 
     <div style="color:red"
          th:if="${#fields.hasErrors('email')}"
@@ -51,24 +57,29 @@
     </div>
     <br/>
     <label th:for="firstname" th:text="#{registration.firstname}"></label>
-    <input th:type="text" th:field="*{firstname}"  th:id="firstname">
+    <input th:type="text" class="form-control" th:field="*{firstname}"  th:id="firstname">
     <br/>
     <label th:for="surname" th:text="#{registration.surname}"></label>
-    <input th:type="text" th:field="*{surname}"  th:id="surname">
+    <input th:type="text" class="form-control" th:field="*{surname}"  th:id="surname">
     <br/>
     <label th:for="city" th:text="#{registration.city}"></label>
-    <input th:type="text" th:field="*{city}"  th:id="city">
+    <input th:type="text" class="form-control" th:field="*{city}"  th:id="city">
     <br/>
     <label th:for="region" th:text="#{registration.region}"></label>
-    <input th:type="text" th:field="*{region}"  th:id="region">
+    <input th:type="text" class="form-control" th:field="*{region}"  th:id="region">
     <br/>
     <label th:for="institution" th:text="#{registration.institution}"></label>
-    <input th:type="text" th:field="*{institution}"  th:id="institution">
+    <input th:type="text" class="form-control" th:field="*{institution}"  th:id="institution">
     <br/>
 
-    <input type="submit" th:value="#{registration.create}">
+    <button class="btn btn-lg btn-primary btn-block"
+            th:type="submit"
+            th:text="#{registration.create}"></button>
 </form>
-    <a th:href="@{/}" th:text="#{common.back}"></a>
 </div>
+</div>
+<a class="btn btn-primary"
+   th:href="@{/}"
+   th:text="#{common.back}"></a>
 </body>
 </html>

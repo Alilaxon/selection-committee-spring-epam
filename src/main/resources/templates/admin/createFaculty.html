@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>createFaculty</title>
 
     <div th:replace="parts/bootstrap.html"></div>
 
+    <div th:replace="parts/springBootstrap.html"> </div>
+
     <div th:replace="parts/language.html"></div>
 </head>
 <body>
 <div class="container">
-<form th:method="POST"
+<form class="form-signin"
+        th:method="POST"
       th:action="@{/admin/addFaculty}"
       th:object="${facultyForm}">
 
 
 
     <label th:for="facultyName" th:text="#{faculties.name}"></label>
-    <input th:type="text" th:field="*{facultyName}" th:id="facultyName"/>
+    <input class="form-control" th:type="text"  th:field="*{facultyName}" th:id="facultyName"/>
 
     <div style="color:red"
          th:if="${#fields.hasErrors('facultyName')}"
@@ -30,13 +33,13 @@
     </div>
     <br/>
     <label th:for="budgetPlaces" th:text="#{faculties.budgetPlaces}"></label>
-    <input th:type="text" th:field="*{budgetPlaces}" th:id="budgetPlaces"/>
+    <input class="form-control" th:type="text" th:field="*{budgetPlaces}" th:id="budgetPlaces"/>
 
     <div style="color:red" th:if="${#fields.hasErrors('budgetPlaces')}" th:errors="*{budgetPlaces}">budgetPlaces error
     </div>
     <br/>
     <label for="generalPlaces" th:text="#{faculties.generalPlaces}"></label>
-    <input type="text" th:field="*{generalPlaces}" id="generalPlaces"/>
+    <input class="form-control" type="text" th:field="*{generalPlaces}" id="generalPlaces"/>
     <div style="color:red" th:if="${#fields.hasErrors('generalPlaces')}" th:errors="*{generalPlaces}">generalPlaces
     </div>
     <br/>

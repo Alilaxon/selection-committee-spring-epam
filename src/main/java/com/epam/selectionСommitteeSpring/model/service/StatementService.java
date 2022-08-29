@@ -63,8 +63,6 @@ public class StatementService {
                 .sorted(Comparator.comparing(Statement::getGradePointAverage))
                 .collect(Collectors.toList());
 
-
-
         statements.stream()
                 .limit(faculty.getGeneralPlaces())
                 .forEach(statement -> statement.setPosition_id(
@@ -79,12 +77,23 @@ public class StatementService {
 
         log.info("faculty '{}'  finalized results", faculty.getName());
 
-        statementRepository.saveAll(statements);
+        for (Statement statement: statements) {
+           if(isOnFaculty(statement)){
 
+               log.info("all other statements of '{}' on '{}' will be delete"
+                       ,statement.getUserId().getUsername()
+                       ,statement.getFacultyId().getName());
+
+               deleteOtherStatements(statement);
+           }
+        }
+        statementRepository.saveAll(statements);
     }
+
     private void checkIfRegistered(StatementForm statementForm) throws UserAlreadyRegisteredException {
 
         if(statementRepository.existsByUserIdAndAndFacultyId(statementForm.getUser(),statementForm.getFaculty())){
+
             throw new UserAlreadyRegisteredException();
         }
 
@@ -94,4 +103,19 @@ public class StatementService {
         return statementRepository.existsByUserIdAndAndFacultyId(user,faculty);
 
     }
+
+    private boolean isOnFaculty (Statement statement){
+        return  statement.getPosition_id().getPositionType().equals(Position.PositionType.BUDGET) ||
+                statement.getPosition_id().getPositionType().equals(Position.PositionType.CONTRACT);
+    }
+
+    private void deleteOtherStatements (Statement statement){
+
+        statementRepository.deleteAll( statementRepository
+                .findAllByUserId(statement.getUserId()).stream()
+                .filter(i ->i.getFacultyId().getId() != statement.getFacultyId().getId())
+                .collect(Collectors.toList()));
+
+    }
+
 }

@@ -8,7 +8,7 @@
 
     <div th:replace="parts/bootstrap.html"></div>
 
-    <div th:replace="parts/language.html"></div>
+    <div th:replace="parts/header.html"></div>
 </head>
 <body>
 <div class="container">
@@ -43,19 +43,23 @@
                 <input th:type="hidden" th:name="userId" th:value="${user.id}">
                 <input th:type="hidden" th:name="userBlocked" th:value="${user.blocked}">
 
-                <button th:type="submit" th:if="${user.blocked}">
-                    <span style="color:green" th:text="#{users.unlock}"></span>
+                <button class="btn btn-success"
+                        th:type="submit"
+                        th:if="${user.blocked}"
+                        th:text="#{users.unlock}">
                 </button>
 
-                <button th:type="submit" th:if="${!user.blocked}">
-                    <span style="color:red" th:text="#{users.block}"></span>
+                <button class="btn btn-danger"
+                        th:type="submit"
+                        th:if="${!user.blocked}"
+                        th:text="#{users.block}">
                 </button>
 
             </form>
         </td>
         </tbody>
         <h2>
-        <a th:href="@{/}" th:text="#{common.back}"></a>
+        <a class="btn btn-primary" th:href="@{/}" th:text="#{common.back}"></a>
         </h2>
     </table>
 

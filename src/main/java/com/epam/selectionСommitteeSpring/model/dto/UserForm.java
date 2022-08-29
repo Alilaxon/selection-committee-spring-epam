@@ -6,30 +6,28 @@ import javax.validation.constraints.Size;
 public class UserForm {
     @NotBlank(message = "username should not be empty")
     @Size(min = 2, max = 32, message = "login size must be 2-32")
-    private String username
-
-            ;
+    private String username;
     @NotBlank
     @Size(min = 1, max = 32, message = "password size must be 8-32")
     private String password;
     @NotBlank
     @Size(min=2,max = 32)
     private String email;
-  //  @NotBlank
-  //  @Size(min=2,max = 32)
+    @NotBlank
+    @Size(min=2,max = 32)
     private String firstname;
-  //  @NotBlank
-  //  @Size(min=2,max = 32)
+    @NotBlank
+    @Size(min=2,max = 32)
     private String surname;
- //   @NotBlank
- //   @Size(min=2,max = 32)
+    @NotBlank
+    @Size(min=2,max = 32)
     private String city;
-  //  @NotBlank
- //   @Size(min=2,max = 32)
+    @NotBlank
+    @Size(min=2,max = 32)
     private String region;
 
- //   @NotBlank
- //   @Size(min=2,max = 32)
+    @NotBlank
+    @Size(min=2,max = 32)
     private String  institution;
 
     public UserForm() {

@@ -1,0 +1,42 @@
+<div class="container"
+     xmlns:sec="http://www.w3.org/1999/xhtml">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
+
+        <div class="col-md-3 text-start">
+            <p th:text="#{lang.current}"></p>
+            <a class="btn btn-primary" th:href="@{'?lang=ru'}" th:text="#{lang.ru}"></a>
+            <a class="btn btn-primary" th:href="@{'?lang=en'}" th:text="#{lang.en}"></a>
+        </div>
+
+
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center">
+            <li sec:authorize="hasAuthority('ADMIN')">
+                <a class="btn btn-primary" th:href="@{/admin/users}" th:text="#{main.users}">
+                </a>
+            </li>
+            <li sec:authorize="hasAuthority('ADMIN')">
+                <a class="btn btn-primary" th:href="@{/admin/subjects}" th:text="#{main.subjects}">
+                </a>
+            </li>
+            <li>
+                <a class="btn btn-primary" th:href="@{/faculties}" th:text="#{main.faculties}">
+                </a>
+            </li>
+        </ul>
+        <div class="col-md-3 text-end">
+            <a class="btn btn-primary"
+               sec:authorize="!isAuthenticated()"
+               th:href="@{/registration/form}"
+               th:text="#{main.registration}"></a>
+            <a class="btn btn-primary"
+               sec:authorize="!isAuthenticated()"
+               th:href="@{/login}"
+               th:text="#{main.login}"></a>
+            <a class="btn btn-primary"
+               sec:authorize="isAuthenticated()"
+               th:href="@{/logout}" th:text="#{main.logout}"></a>
+        </div>
+
+
+    </header>
+</div>

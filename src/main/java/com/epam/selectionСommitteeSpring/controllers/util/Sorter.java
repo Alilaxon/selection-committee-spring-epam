@@ -9,6 +9,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Sorter {
+
+    private Sorter() {
+    }
+
     public static List<Faculty> facultySorting(List<Faculty> input, String sort, String order) {
         List<Faculty> facultyList;
         if (sort.equals("generalPlaces")) {

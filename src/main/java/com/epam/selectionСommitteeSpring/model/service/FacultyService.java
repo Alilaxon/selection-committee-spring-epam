@@ -74,7 +74,7 @@ public class FacultyService {
             throw new FacultyIsReservedException();
         }
 
-        log.warn("Faculty '{}' was updated", facultyForm.getFacultyName());
+        log.info("Faculty '{}' was updated", facultyForm.getFacultyName());
 
         return facultyRepository.save(FacultyBuilder.builder()
                 .id(facultyForm.getId())
