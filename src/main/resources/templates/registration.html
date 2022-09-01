@@ -12,70 +12,79 @@
 
     <div th:replace="parts/language.html"></div>
 
-<!--    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">-->
-
 </head>
 <body>
-<div class="container">
+<div th:class="container">
 
-<form class="form-signin" th:method="POST" th:action="@{/registration}"  th:object="${userForm}">
+    <form th:class="form-signin" th:method="POST"
+          th:action="@{/registration}" th:object="${userForm}">
 
-    <h1 class="form-signin-heading"  th:text="#{registration.name}"></h1>
+        <h1 th:class="form-signin-heading" th:text="#{registration.name}"></h1>
 
-    <label  th:for="login" th:text="#{registration.login}"></label>
-    <input th:type="text" class="form-control"   th:field="*{username}" th:id="login"/>
+        <label th:for="login" th:text="#{registration.login}"></label>
+        <input th:class="form-control" th:type="text"
+               th:placeholder="#{registration.login.field}"
+               th:field="*{username}" th:id="login"/>
 
-    <div style="color:red"
-         th:if="${#fields.hasErrors('username')}"
-         th:text="#{registration.exception.loginValid}" >
-    </div>
+        <div style="color:red"
+             th:if="${#fields.hasErrors('username')}"
+             th:text="#{registration.exception.loginValid}">
+        </div>
 
-    <div style="color:blue"
-            th:if="${LoginIsReserved}"
-         th:text="#{registration.exception.login}">
-    </div>
-    <br/>
+        <div style="color:blue"
+             th:if="${LoginIsReserved}"
+             th:text="#{registration.exception.login}">
+        </div>
 
-    <label th:for="password" th:text="#{registration.password}"></label>
-    <input th:type="text" class="form-control" th:field="*{password}"  th:id="password">
+        <label th:for="password" th:text="#{registration.password}"></label>
+        <input th:class="form-control" th:type="text"
+               th:placeholder="#{registration.password.field}"
+               th:field="*{password}" th:id="password">
 
-    <div style="color:red"
-         th:if="${#fields.hasErrors('password')}"
-         th:text="#{registration.exception.passwordValid}">
-    </div>
-    <br/>
-    <label th:for="email" th:text="#{registration.email}"></label>
-    <input th:type="text" class="form-control" th:field="*{email}"  th:id="email">
+        <div style="color:red"
+             th:if="${#fields.hasErrors('password')}"
+             th:text="#{registration.exception.passwordValid}">
+        </div>
 
-    <div style="color:red"
-         th:if="${#fields.hasErrors('email')}"
-         th:text="#{registration.exception.emailValid}"></div>
+        <label th:for="email" th:text="#{registration.email}"></label>
+        <input th:class="form-control" th:type="text"
+               th:placeholder="#{registration.email.field}"
+               th:field="*{email}" th:id="email">
 
-    <div style="color:blue"
-         th:if="${EmailIsReserved}"
-         th:text="#{registration.exception.email}">
-    </div>
-    <br/>
-    <label th:for="firstname" th:text="#{registration.firstname}"></label>
-    <input th:type="text" class="form-control" th:field="*{firstname}"  th:id="firstname">
-    <br/>
-    <label th:for="surname" th:text="#{registration.surname}"></label>
-    <input th:type="text" class="form-control" th:field="*{surname}"  th:id="surname">
-    <br/>
-    <label th:for="city" th:text="#{registration.city}"></label>
-    <input th:type="text" class="form-control" th:field="*{city}"  th:id="city">
-    <br/>
-    <label th:for="region" th:text="#{registration.region}"></label>
-    <input th:type="text" class="form-control" th:field="*{region}"  th:id="region">
-    <br/>
-    <label th:for="institution" th:text="#{registration.institution}"></label>
-    <input th:type="text" class="form-control" th:field="*{institution}"  th:id="institution">
-    <br/>
+        <div style="color:red"
+             th:if="${#fields.hasErrors('email')}"
+             th:text="#{registration.exception.emailValid}"></div>
 
-    <button class="btn btn-lg btn-primary btn-block"
-            th:type="submit"
-            th:text="#{registration.create}"></button>
-</form>
+        <div style="color:blue"
+             th:if="${EmailIsReserved}"
+             th:text="#{registration.exception.email}">
+        </div>
+
+        <label th:for="firstname" th:text="#{registration.firstname}"></label>
+        <input th:class="form-control" th:type="text"
+               th:field="*{firstname}" th:id="firstname">
+
+        <label th:for="surname" th:text="#{registration.surname}"></label>
+        <input th:class="form-control" th:type="text"
+               th:field="*{surname}" th:id="surname">
+
+        <label th:for="city" th:text="#{registration.city}"></label>
+        <input th:class="form-control" th:type="text"
+               th:field="*{city}" th:id="city">
+
+        <label th:for="region" th:text="#{registration.region}"></label>
+        <input th:class="form-control" th:type="text"
+               th:field="*{region}" th:id="region">
+
+        <label th:for="institution" th:text="#{registration.institution}"></label>
+        <input th:class="form-control" th:type="text"
+               th:field="*{institution}" th:id="institution">
+        <br>
+
+        <button class="btn btn-lg btn-primary btn-block"
+                th:type="submit"
+                th:text="#{registration.create}"></button>
+    </form>
 </div>
 </div>
 <a class="btn btn-primary"

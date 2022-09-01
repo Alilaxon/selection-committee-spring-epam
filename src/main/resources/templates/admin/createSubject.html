@@ -13,7 +13,8 @@
 </head>
 <body>
 <div>
-<form class="form-signin" th:method="POST" th:action="@{/admin/addSubject}"  th:object="${subjectFrom}">
+<form th:class="form-signin" th:method="POST"
+      th:action="@{/admin/addSubject}"  th:object="${subjectFrom}">
 
     <label th:for="nameEN" th:text="#{subjects.nameEN}"></label>
     <input th:type="text" class="form-control" th:field="*{nameEN}" id="nameEN"/>

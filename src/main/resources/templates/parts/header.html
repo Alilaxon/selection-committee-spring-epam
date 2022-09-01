@@ -3,7 +3,7 @@
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
 
         <div class="col-md-3 text-start">
-            <p th:text="#{lang.current}"></p>
+            <a th:text="#{lang.current}"></a>
             <a class="btn btn-primary" th:href="@{'?lang=ru'}" th:text="#{lang.ru}"></a>
             <a class="btn btn-primary" th:href="@{'?lang=en'}" th:text="#{lang.en}"></a>
         </div>
@@ -24,6 +24,20 @@
             </li>
         </ul>
         <div class="col-md-3 text-end">
+            <a class="btn btn-info"
+               style="color: white"
+               sec:authorize="hasAuthority('ADMIN')"
+               sec:authentication="name"
+               th:href="@{'/admin?userId=' + ${#authentication.getPrincipal().getId()}}">
+            </a>
+
+            <a class="btn btn-info"
+               style="color: white"
+               sec:authorize="hasAuthority('USER')"
+               sec:authentication="name"
+               th:href="@{'/user?userId=' + ${#authentication.getPrincipal().getId()}}">
+            </a>
+
             <a class="btn btn-primary"
                sec:authorize="!isAuthenticated()"
                th:href="@{/registration/form}"

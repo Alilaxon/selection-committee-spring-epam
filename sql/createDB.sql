@@ -1,9 +1,17 @@
+DROP TABLE IF EXISTS statements;
+DROP TABLE IF EXISTS positions;
+DROP TABLE IF EXISTS faculties_subjects;
+DROP TABLE IF EXISTS subjects;
+DROP TABLE IF EXISTS faculties;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS roles;
+
+
+
 CREATE TABLE roles
 (
     id SERIAL PRIMARY KEY   NOT NULL,
-    name        VARCHAR(50) NOT NULL ,
-    description VARCHAR(50)
-
+    name        VARCHAR(50) NOT NULL
 );
 
 
@@ -20,21 +28,9 @@ CREATE TABLE users
     institution VARCHAR(64) ,
     blocked     bool NOT NULL DEFAULT FALSE,
     role_id     INT NOT NULL
-        REFERENCES roles (id),
+    REFERENCES roles (id) ON DELETE CASCADE,
     PRIMARY KEY (id)
 
-);
-
-
-CREATE TABLE faculties
-(
-    id       SERIAL  NOT NULL,
-    name         VARCHAR(50) ,
-    budget_places    INT     ,
-    general_places   INT     ,
-    recruitment BOOLEAN NOT NULL
-    DEFAULT FALSE,
-    PRIMARY KEY (id)
 );
 
 CREATE TABLE subjects
@@ -45,11 +41,24 @@ CREATE TABLE subjects
     PRIMARY KEY (id)
 );
 
+CREATE TABLE faculties
+(
+    id       SERIAL  NOT NULL,
+    name         VARCHAR(50) ,
+    name_ru       varchar(50),
+    budget_places    INT     ,
+    general_places   INT     ,
+    recruitment BOOLEAN NOT NULL
+    DEFAULT FALSE,
+    PRIMARY KEY (id)
+);
+
+
 CREATE TABLE faculties_subjects
     (
  id SERIAL NOT NULL ,
- faculty_id INT REFERENCES faculties (id) ,
-  subject_id INT REFERENCES subjects (id),
+ faculty_id INT REFERENCES faculties (id) ON DELETE CASCADE ,
+  subject_id INT REFERENCES subjects (id) ON DELETE CASCADE,
     PRIMARY KEY (id)
 );
 
@@ -60,13 +69,15 @@ CREATE TABLE positions
         PRIMARY KEY (id)
 );
 
+
+
     CREATE TABLE statements
 (
-    id SERIAL NOT NULL ,
-    faculty_id INT REFERENCES faculties(id),
+    id SERIAL  NOT NULL ,
+    faculty_id INT REFERENCES faculties(id) ON DELETE CASCADE ,
     user_id INT REFERENCES users(id),
     gpa int NOT NULL ,
-    position_id INT REFERENCES positions(id),
+    position_id INT REFERENCES positions(id) ON DELETE CASCADE,
     PRIMARY KEY (id)
     );
 
@@ -91,12 +102,71 @@ default,'admin','admin@gmail.com',
 'Hogwarts School of Witchcraft and Wizardry',
  false,2);
 
-
-INSERT INTO subjects
-VALUES ( default,'Astronomy','Астрономия');
-
 INSERT INTO subjects
 VALUES ( default,
 'Defence against the Dark Arts',
 'Защита от Тёмных искусств' );
 
+INSERT INTO subjects
+VALUES ( default,'Astronomy','Астрономия');
+
+INSERT INTO subjects
+VALUES ( default,'Charms','Заклинания');
+
+INSERT INTO subjects
+VALUES ( default,'Potions','Зельеварение');
+
+INSERT INTO subjects
+VALUES ( default,'History of Magic','История магии');
+
+INSERT INTO subjects
+VALUES ( default,'Herbology','Травология');
+
+INSERT INTO subjects
+VALUES ( default,'Transfiguration','Трансфигурация');
+
+INSERT INTO faculties
+VALUES ( default,'Gryffindor','Гриффиндор',3,5,false);
+
+INSERT INTO faculties
+VALUES ( default,'Hufflepuff','Пуффендуй',5,7,false);
+
+INSERT INTO faculties
+VALUES ( default,'Slytherin','Cлизерин',1,9,false);
+
+
+INSERT INTO faculties_subjects
+VALUES (default,(SELECT id FROM faculties WHERE name = 'Gryffindor'),
+        (SELECT id FROM subjects WHERE name_en = 'Charms'));
+
+INSERT INTO faculties_subjects
+VALUES (default,(SELECT id FROM faculties WHERE name = 'Gryffindor'),
+        (SELECT id FROM subjects WHERE name_en = 'Astronomy'));
+
+INSERT INTO faculties_subjects
+VALUES (default,(SELECT id FROM faculties WHERE name = 'Gryffindor'),
+        (SELECT id FROM subjects WHERE name_en = 'History of Magic'));
+
+INSERT INTO faculties_subjects
+VALUES (default,(SELECT id FROM faculties WHERE name = 'Hufflepuff'),
+        (SELECT id FROM subjects WHERE name_en = 'Charms'));
+
+INSERT INTO faculties_subjects
+VALUES (default,(SELECT id FROM faculties WHERE name = 'Hufflepuff'),
+        (SELECT id FROM subjects WHERE name_en = 'Astronomy'));
+
+INSERT INTO faculties_subjects
+VALUES (default,(SELECT id FROM faculties WHERE name = 'Hufflepuff'),
+        (SELECT id FROM subjects WHERE name_en = 'History of Magic'));
+
+INSERT INTO faculties_subjects
+VALUES (default,(SELECT id FROM faculties WHERE name = 'Slytherin'),
+        (SELECT id FROM subjects WHERE name_en = 'Charms'));
+
+INSERT INTO faculties_subjects
+VALUES (default,(SELECT id FROM faculties WHERE name = 'Slytherin'),
+        (SELECT id FROM subjects WHERE name_en = 'Astronomy'));
+
+INSERT INTO faculties_subjects
+VALUES (default,(SELECT id FROM faculties WHERE name = 'Slytherin'),
+        (SELECT id FROM subjects WHERE name_en = 'History of Magic'));

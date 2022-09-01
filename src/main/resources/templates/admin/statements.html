@@ -11,7 +11,10 @@
 <body>
 
 <div class="container">
-    <h1><a th:text="${facultyName}"></a></h1>
+    <h1>
+        <a th:if="${#locale.getLanguage().equals('en')}" th:text="${faculty.getName()}"></a>
+        <a th:if="${#locale.getLanguage().equals('ru')}" th:text="${faculty.getNameRU()}"></a>
+    </h1>
     <table class="table table-bordered">
         <tr>
             <th>
@@ -49,7 +52,7 @@
 
             <a class="btn btn-primary"
                th:href="@{/faculties}"
-               th:text="#{faculties.back}" ></a>
+               th:text="#{faculties.back}"></a>
         </h2>
     </table>
 </div>
