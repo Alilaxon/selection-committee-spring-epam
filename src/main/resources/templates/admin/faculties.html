@@ -14,7 +14,6 @@
 <body>
 
 <div class="container" >
-    <a th:text="${#locale.getLanguage()}"></a>
     <div >
         <h5>
             <a th:if="${order.equals('asc')}" th:text="#{faculties.sort} + ' ↑'"></a>
@@ -64,16 +63,16 @@
     <div class="row row-cols-4 row-cols-md-4 g-4">
         <div th:each="faculty : ${faculties}">
             <div class="card h-100" style="background-color: cornsilk">
+                <h3>
                 <div class="card-header">
-                    <h3>
                         <p th:if="${#locale.getLanguage().equals('en')}" class="card-title"
                            th:text="${faculty.getName}">
                         </p>
                         <p th:if="${#locale.getLanguage().equals('ru')}" class="card-title"
                            th:text="${faculty.getNameRU()}">
                         </p>
-                    </h3>
                 </div>
+                </h3>
                 <div class="card-body">
                     <h4>
                         <p th:text="#{faculties.budgetPlaces} +': '+ ${faculty.getBudgetPlaces()}"></p>
@@ -102,9 +101,6 @@
                         </div>
                     </div>
 
-                    <!--                    <input th:type="hidden"-->
-                    <!--                           th:name="facultyId"-->
-                    <!--                           th:value="${faculty.getId()}">-->
                     <div sec:authorize="hasAuthority('ADMIN')">
                         <form th:method="DELETE"
                               th:action="@{/admin/faculty/{id}(id=${faculty.getId})}">

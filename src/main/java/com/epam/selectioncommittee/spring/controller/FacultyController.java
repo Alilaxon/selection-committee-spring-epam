@@ -1,8 +1,8 @@
-package com.epam.selectioncommittee.spring.controllers;
+package com.epam.selectioncommittee.spring.controller;
 
-import com.epam.selectioncommittee.spring.controllers.util.FacultyUrl;
-import com.epam.selectioncommittee.spring.controllers.util.Sorter;
-import com.epam.selectioncommittee.spring.controllers.util.Validator;
+import com.epam.selectioncommittee.spring.controller.util.FacultyUrl;
+import com.epam.selectioncommittee.spring.controller.util.Sorter;
+import com.epam.selectioncommittee.spring.controller.util.Validator;
 import com.epam.selectioncommittee.spring.model.builders.FacultyFormBuilder;
 import com.epam.selectioncommittee.spring.model.exception.FacultyIsReservedException;
 import com.epam.selectioncommittee.spring.model.service.SubjectService;

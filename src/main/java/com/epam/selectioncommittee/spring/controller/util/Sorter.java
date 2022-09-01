@@ -1,4 +1,4 @@
-package com.epam.selectioncommittee.spring.controllers.util;
+package com.epam.selectioncommittee.spring.controller.util;
 
 import com.epam.selectioncommittee.spring.model.entity.Faculty;
 import org.springframework.data.domain.PageRequest;

@@ -1,4 +1,4 @@
-package com.epam.selectioncommittee.spring.controllers;
+package com.epam.selectioncommittee.spring.controller;
 
 import com.epam.selectioncommittee.spring.model.service.StatementService;
 import com.epam.selectioncommittee.spring.model.entity.Faculty;

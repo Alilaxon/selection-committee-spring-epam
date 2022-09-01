@@ -1,4 +1,4 @@
-package com.epam.selectioncommittee.spring.controllers.user;
+package com.epam.selectioncommittee.spring.controller.user;
 
 
 import com.epam.selectioncommittee.spring.model.dto.StatementForm;

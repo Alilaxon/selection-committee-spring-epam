@@ -1,4 +1,4 @@
-package com.epam.selectioncommittee.spring.controllers.guest;
+package com.epam.selectioncommittee.spring.controller.guest;
 
 
 import org.springframework.stereotype.Controller;

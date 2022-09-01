@@ -1,7 +1,7 @@
 package com.epam.selectioncommittee.spring.model.service;
 
 
-import com.epam.selectioncommittee.spring.controllers.util.AverageGrade;
+import com.epam.selectioncommittee.spring.controller.util.AverageGrade;
 import com.epam.selectioncommittee.spring.model.builders.StatementBuilder;
 import com.epam.selectioncommittee.spring.model.dto.StatementForm;
 import com.epam.selectioncommittee.spring.model.repository.PositionRepository;

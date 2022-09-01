@@ -1,4 +1,4 @@
-package com.epam.selectioncommittee.spring.controllers.admin;
+package com.epam.selectioncommittee.spring.controller.admin;
 
 
 import com.epam.selectioncommittee.spring.model.service.StatementService;

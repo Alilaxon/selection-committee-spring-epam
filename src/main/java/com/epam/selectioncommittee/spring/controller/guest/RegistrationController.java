@@ -1,4 +1,4 @@
-package com.epam.selectioncommittee.spring.controllers.guest;
+package com.epam.selectioncommittee.spring.controller.guest;
 import com.epam.selectioncommittee.spring.model.dto.UserForm;
 import com.epam.selectioncommittee.spring.model.exception.EmailIsReservedException;
 import com.epam.selectioncommittee.spring.model.exception.UsernameIsReservedException;
