@@ -2,7 +2,7 @@ DELETE FROM statements
 where 1=1;
 
 DELETE FROM users
-where id<>10;
+where id<>1;
 
 INSERT INTO users VALUES (
                              default,'User1','HarryPotter@gmail.com',

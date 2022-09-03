@@ -23,7 +23,7 @@ public class Statement {
     private Long gradePointAverage;
     @ManyToOne
     @JoinColumn(name = "position_id")
-    private Position position_id;
+    private Position position;
 
     public Statement() {
     }
@@ -32,12 +32,12 @@ public class Statement {
                      Faculty facultyId,
                      User userId,
                      Long gradePointAverage,
-                     Position position_id) {
+                     Position position) {
         this.id = id;
         this.facultyId = facultyId;
         this.userId = userId;
         this.gradePointAverage = gradePointAverage;
-        this.position_id = position_id;
+        this.position = position;
     }
 
     public Long getId() {
@@ -80,14 +80,14 @@ public class Statement {
         this.gradePointAverage = gradePointAverage;
     }
 
-    public Position getPosition_id() {
+    public Position getPosition() {
 
-        return position_id;
+        return position;
     }
 
-    public void setPosition_id(Position position_id) {
+    public void setPosition(Position position) {
 
-        this.position_id = position_id;
+        this.position = position;
     }
 
 
@@ -100,12 +100,12 @@ public class Statement {
                 && facultyId.equals(statement.facultyId)
                 && userId.equals(statement.userId)
                 && gradePointAverage.equals(statement.gradePointAverage)
-                && position_id.equals(statement.position_id);
+                && position.equals(statement.position);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, facultyId, userId, gradePointAverage, position_id);
+        return Objects.hash(id, facultyId, userId, gradePointAverage, position);
     }
 
     @Override
@@ -115,7 +115,7 @@ public class Statement {
                 ", facultyId=" + facultyId +
                 ", userId=" + userId +
                 ", gradePointAverage=" + gradePointAverage +
-                ", position_id=" + position_id +
+                ", position_id=" + position +
                 '}';
     }
 }

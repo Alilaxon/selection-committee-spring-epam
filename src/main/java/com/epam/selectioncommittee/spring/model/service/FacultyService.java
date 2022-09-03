@@ -4,6 +4,7 @@ import com.epam.selectioncommittee.spring.model.builders.FacultyBuilder;
 import com.epam.selectioncommittee.spring.model.dto.FacultyForm;
 import com.epam.selectioncommittee.spring.model.entity.Faculty;
 import com.epam.selectioncommittee.spring.model.exception.FacultyIsReservedException;
+import com.epam.selectioncommittee.spring.model.exception.SubjectIsReservedException;
 import com.epam.selectioncommittee.spring.model.repository.FacultyRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,6 +39,7 @@ public class FacultyService {
                 .recruitment(false)
                 .build());
     }
+
 
     private void checkFacultyName(String name) throws FacultyIsReservedException {
 

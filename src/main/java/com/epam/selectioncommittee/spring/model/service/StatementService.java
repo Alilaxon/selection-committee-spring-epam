@@ -4,16 +4,15 @@ package com.epam.selectioncommittee.spring.model.service;
 import com.epam.selectioncommittee.spring.controller.util.AverageGrade;
 import com.epam.selectioncommittee.spring.model.builders.StatementBuilder;
 import com.epam.selectioncommittee.spring.model.dto.StatementForm;
+import com.epam.selectioncommittee.spring.model.entity.*;
 import com.epam.selectioncommittee.spring.model.repository.PositionRepository;
 import com.epam.selectioncommittee.spring.model.repository.StatementRepository;
-import com.epam.selectioncommittee.spring.model.entity.Faculty;
-import com.epam.selectioncommittee.spring.model.entity.Position;
-import com.epam.selectioncommittee.spring.model.entity.Statement;
-import com.epam.selectioncommittee.spring.model.entity.User;
 import com.epam.selectioncommittee.spring.model.exception.UserAlreadyRegisteredException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -24,8 +23,8 @@ import java.util.stream.Collectors;
 public class StatementService {
 
     private static final Logger log = LogManager.getLogger(StatementService.class);
-    private  final StatementRepository statementRepository;
-    private  final PositionRepository positionRepository;
+    private final StatementRepository statementRepository;
+    private final PositionRepository positionRepository;
 
 
     @Autowired
@@ -48,76 +47,93 @@ public class StatementService {
                 .build());
     }
 
-
-    public List<Statement> findAllStatementsByUserId(User userid){
-
-        return statementRepository.findAllByUserId(userid);
+    public void deleteStatement (Long id){
+        statementRepository.deleteById(id);
     }
 
-    public List<Statement> findAllStatementsByFaculty (Faculty facultyId){
 
-        return statementRepository.findAllByFacultyId(facultyId);
+    public List<Statement> findAllStatementsByUserId(User user) {
+
+        return statementRepository.findAllByUserId(user);
     }
 
-    public void finalizeStatements(Faculty faculty){
+    public List<Statement> findAllStatementsByFaculty(Faculty faculty) {
 
-        List<Statement> statements = findAllStatementsByFaculty(faculty)
-                .stream()
-                .sorted(Comparator.comparing(Statement::getGradePointAverage))
-                .collect(Collectors.toList());
+        return statementRepository.findAllByFacultyId(faculty);
+    }
+
+    public Page<Statement> findAllStatementsByFaculty(Faculty faculty, Pageable pageable) {
+
+        return statementRepository.findAllByFacultyId(faculty, pageable);
+    }
+
+    public void finalizeStatements(Faculty faculty) {
+
+        List<Statement> statements = findAllStatementsByFaculty(faculty);
 
         statements.stream()
+                .forEach(statement -> statement.setPosition(
+                        positionRepository.findByPositionType(Position.PositionType.REJECTED)));
+
+        sorter(statements).stream()
                 .limit(faculty.getGeneralPlaces())
-                .forEach(statement -> statement.setPosition_id(
-                        positionRepository.findByPositionType(Position.PositionType.CONTRACT)
-                ));
+                .forEach(statement -> statement.setPosition(
+                        positionRepository.findByPositionType(Position.PositionType.CONTRACT)));
 
-        statements.stream()
+        sorter(statements).stream()
                 .limit(faculty.getBudgetPlaces())
-                .forEach(statement -> statement.setPosition_id(
-                        positionRepository.findByPositionType(Position.PositionType.BUDGET)
-                ));
+                .forEach(statement -> statement.setPosition(
+                        positionRepository.findByPositionType(Position.PositionType.BUDGET)));
 
         log.info("faculty '{}'  finalized results", faculty.getName());
 
-        for (Statement statement: statements) {
-           if(isOnFaculty(statement)){
+        for (Statement statement : statements) {
+            if (isOnFaculty(statement)) {
 
-               log.info("all other statements of '{}' on '{}' will be delete"
-                       ,statement.getUserId().getUsername()
-                       ,statement.getFacultyId().getName());
+                log.info("all other statements of '{}' on '{}' will be delete"
+                        , statement.getUserId().getUsername()
+                        , statement.getFacultyId().getName());
 
-               deleteOtherStatements(statement);
-           }
+                deleteOtherStatements(statement);
+            }
         }
         statementRepository.saveAll(statements);
     }
 
     private void checkIfRegistered(StatementForm statementForm) throws UserAlreadyRegisteredException {
 
-        if(statementRepository.existsByUserIdAndAndFacultyId(statementForm.getUser(),statementForm.getFaculty())){
+        if (statementRepository.existsByUserIdAndAndFacultyId(statementForm.getUser(), statementForm.getFaculty())) {
 
             throw new UserAlreadyRegisteredException();
         }
 
     }
-    public boolean checkIfRegistered(User user, Faculty faculty)  {
 
-        return statementRepository.existsByUserIdAndAndFacultyId(user,faculty);
+    public boolean checkIfRegistered(User user, Faculty faculty) {
+
+        return statementRepository.existsByUserIdAndAndFacultyId(user, faculty);
 
     }
 
-    private boolean isOnFaculty (Statement statement){
-        return  statement.getPosition_id().getPositionType().equals(Position.PositionType.BUDGET) ||
-                statement.getPosition_id().getPositionType().equals(Position.PositionType.CONTRACT);
+    private boolean isOnFaculty(Statement statement) {
+        return statement.getPosition().getPositionType().equals(Position.PositionType.BUDGET) ||
+                statement.getPosition().getPositionType().equals(Position.PositionType.CONTRACT);
     }
 
-    private void deleteOtherStatements (Statement statement){
+    private void deleteOtherStatements(Statement statement) {
 
-        statementRepository.deleteAll( statementRepository
+        statementRepository.deleteAll(statementRepository
                 .findAllByUserId(statement.getUserId()).stream()
-                .filter(i ->i.getFacultyId().getId() != statement.getFacultyId().getId())
+                .filter(i -> i.getFacultyId().getId() != statement.getFacultyId().getId())
                 .collect(Collectors.toList()));
+
+    }
+
+    private List<Statement> sorter(List<Statement> list) {
+
+        return list.stream()
+                .sorted(Comparator.comparing(Statement::getGradePointAverage).reversed())
+                .collect(Collectors.toList());
 
     }
 

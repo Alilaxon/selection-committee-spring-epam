@@ -14,7 +14,7 @@ public class Position {
 
 
 
-    @Column(name = "name")
+    @Column(name = "position_name")
     @Enumerated(EnumType.STRING)
     PositionType positionType;
 

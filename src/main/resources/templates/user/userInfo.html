@@ -3,12 +3,14 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>AdminPage</title>
+    <title>Title</title>
+
     <th:block th:replace="parts/bootstrap.html"></th:block>
+
 </head>
 <body>
 <div th:class="container">
-    <h1>AdminPage</h1>
+<h1>UserPage</h1>
     <h3>
         <a th:text="#{profile.login}"></a>
         <a th:text="${userProfile.getUsername}"></a>
@@ -31,8 +33,30 @@
         <a th:text="#{profile.institution}"></a>
         <a th:text="${userProfile.getInstitution()}"></a>
     </h3>
+<div th:each="statement :${statements}">
 
-    <a class="btn btn-primary" th:href="@{/}" th:text="#{common.back}"></a>
+
+    <h3>
+        <div class="card" style="background-color: cornsilk">
+        <a th:text="'Faculty : '+ ${statement.getFacultyId().getName()}"></a>
+        <a th:text="'Faculty : '+ ${statement.getFacultyId().getName()}"></a>
+        <br/>
+        <a th:text="'GradePointAverage : '+${statement.getGradePointAverage()}"></a>
+        <br/>
+        <a th:text="'Position : '+${statement.getPosition().getPositionType().name()}"></a>
+
+            <form th:method="DELETE"
+                  th:action="@{/statement/{id}(id=${statement.getId})}">
+                <button class="btn btn-secondary"
+                        th:type="submit"
+                        th:text="#{common.delete}">
+                </button>
+            </form>
+</div>
+    </h3>
+</div>
+
+<a class="btn btn-primary" th:href="@{/}" th:text="#{common.back}"></a>
 </div>
 </body>
 </html>

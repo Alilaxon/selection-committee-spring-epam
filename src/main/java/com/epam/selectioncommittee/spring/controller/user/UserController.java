@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @GetMapping()
-    public String userPage(@RequestParam("userId") Long id, Model model) {
+    public String userPage(@RequestParam("id") Long id, Model model) {
 
         User user = userService.findUserById(id);
 
@@ -48,7 +48,7 @@ public class UserController {
         model.addAttribute("statements", statements);
         model.addAttribute("userProfile", user);
 
-        return "User/UserPage";
+        return "user/userInfo";
     }
 
     @GetMapping("/statement")
@@ -60,7 +60,7 @@ public class UserController {
 
         if (statementService.checkIfRegistered(user, faculty)) {
 
-            return "User/alreadyRegistered";
+            return "user/alreadyRegistered";
         }
 
         StatementForm statementForm = new StatementForm();
@@ -70,7 +70,7 @@ public class UserController {
         model.addAttribute("statementForm", statementForm);
         model.addAttribute("subjectList", faculty.getSubjects());
 
-        return "User/registrationOnFaculty";
+        return "user/createStatement";
 
     }
 
@@ -86,7 +86,7 @@ public class UserController {
 
             model.addAttribute("UserAlreadyRegistered", true);
         }
-        return "User/registrationOnFaculty";
+        return "user/createStatement";
     }
 
 }

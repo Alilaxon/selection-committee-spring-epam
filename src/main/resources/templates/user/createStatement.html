@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>statement</title>
+    <th:block th:replace="parts/bootstrap.html"></th:block>
+
+    <th:block th:replace="parts/springBootstrap.html"></th:block>
+
+</head>
+<body>
+<div th:class="container">
+
+<form th:class="form-signin" th:method="POST" th:action="@{/user/statement}"  th:object="${statementForm}">
+
+    <h1>
+        <a th:if="${#locale.getLanguage().equals('en')}"
+           th:text="${statementForm.getFaculty().name}" ></a>
+
+        <a th:if="${#locale.getLanguage().equals('ru')}"
+           th:text="${statementForm.getFaculty().nameRU}"></a>
+    </h1>
+
+    <input type="hidden" th:field="*{faculty}">
+    <input type="hidden" th:field="*{user}">
+
+    <div>
+                <div th:each="subject : ${subjectList}">
+                    <label th:for="${subject.id}">
+                        <a th:if="${#locale.getLanguage().equals('en')}" th:text="${subject.nameEN}"></a>
+                        <a th:if="${#locale.getLanguage().equals('ru')}" th:text="${subject.nameRU}"></a>
+                    </label>
+                    <input th:class="form-control" th:type="number"
+                                               th:min = "100" th:max = "200"
+                            th:field="*{grades}" th:id="${subject.id}">
+
+<!--                    <label th:for="${subject.id}">-->
+<!--                        <span th:text="${subject.nameEN}"></span>-->
+<!--                    </label>-->
+
+                </div>
+        <br>
+        <button th:if="!${UserAlreadyRegistered}" type="submit" class="btn btn-primary">
+            <span th:text="#{faculties.registration.create}"></span>
+        </button>
+        <div style="color:blue"
+             th:if="${UserAlreadyRegistered}"
+             th:text="#{faculties.registration.exception}">
+        </div>
+
+    </div>
+
+
+</form>
+    <a class="btn btn-primary"
+       th:href="@{/faculties}"
+       th:text="#{faculties.registration.back}"></a>
+</div>
+</body>
+</html>

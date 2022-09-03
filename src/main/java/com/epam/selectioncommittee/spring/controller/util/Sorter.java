@@ -4,6 +4,7 @@ import com.epam.selectioncommittee.spring.model.entity.Faculty;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,25 +50,25 @@ public class Sorter {
         }
         return facultyList;
     }
-    public static Pageable subjectSorting (
 
-            String page,String size){
+    public static Pageable subjectSorting(String page, String size) {
 
-
-        return PageRequest.of(Integer.parseInt(page)-1, Integer.parseInt(size), Sort.by("id").ascending());
+        return PageRequest.of(Integer.parseInt(page) - 1,
+                Integer.parseInt(size), Sort.by("id").ascending());
 
     }
 
-    public static Pageable userSorting (String order,String sort,String page,String size){
-        Pageable pageable;
+    public static Pageable userSorting(String order, String sort, String page, String size) {
+
         if (order.equals("asc")) {
 
-            pageable = PageRequest.of(Integer.parseInt(page)-1, Integer.parseInt(size), Sort.by(sort).ascending());
-        } else {
-            pageable = PageRequest.of(Integer.parseInt(page)-1, Integer.parseInt(size), Sort.by(sort).descending());
+            return PageRequest.of(Integer.parseInt(page) - 1,
+                    Integer.parseInt(size), Sort.by(sort).ascending());
         }
 
-        return pageable;
+        return PageRequest.of(Integer.parseInt(page) - 1,
+                Integer.parseInt(size), Sort.by(sort).descending());
+
 
     }
 }

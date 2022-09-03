@@ -91,9 +91,9 @@ public class UserService implements UserDetailsService {
 
     }
 
-    public User findUserById(Long userId) {
+    public User findUserById(Long id) {
 
-        return userRepository.findById(userId).get();
+        return userRepository.findById(id).get();
     }
 
     @Override
@@ -101,7 +101,7 @@ public class UserService implements UserDetailsService {
             throws UsernameNotFoundException {
         User user = findByUsername(username);
         if (user == null) {
-            log.warn(" '{}' not found", username);
+            log.warn("User '{}' not found", username);
             throw new UsernameNotFoundException("User not found");
         }
         return user;

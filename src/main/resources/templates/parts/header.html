@@ -28,14 +28,14 @@
                style="color: white"
                sec:authorize="hasAuthority('ADMIN')"
                sec:authentication="name"
-               th:href="@{'/admin?userId=' + ${#authentication.getPrincipal().getId()}}">
+               th:href="@{'/admin?id=' + ${#authentication.getPrincipal().getId()}}">
             </a>
 
             <a class="btn btn-info"
                style="color: white"
                sec:authorize="hasAuthority('USER')"
                sec:authentication="name"
-               th:href="@{'/user?userId=' + ${#authentication.getPrincipal().getId()}}">
+               th:href="@{'/user?id=' + ${#authentication.getPrincipal().getId()}}">
             </a>
 
             <a class="btn btn-primary"

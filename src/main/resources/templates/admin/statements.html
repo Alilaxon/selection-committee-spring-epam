@@ -12,8 +12,11 @@
 
 <div class="container">
     <h1>
-        <a th:if="${#locale.getLanguage().equals('en')}" th:text="${faculty.getName()}"></a>
-        <a th:if="${#locale.getLanguage().equals('ru')}" th:text="${faculty.getNameRU()}"></a>
+        <a th:if="${#locale.getLanguage().equals('en')}"
+           th:text="${faculty.getName()}"></a>
+        <a th:if="${#locale.getLanguage().equals('ru')}"
+           th:text="${faculty.getNameRU()}"></a>
+
     </h1>
     <table class="table table-bordered">
         <tr>
@@ -30,10 +33,26 @@
                 <span th:text="#{statements.surname}"></span>
             </th>
             <th>
-                <span th:text="#{statements.gradePointAverage}"></span>
+                <a th:if="${order.equals('desc')}"
+                   th:href="@{'/admin/statements?facultyId='+ ${faculty.id}
+                +'&page='+${page}+'&sort=gradePointAverage&order=asc'}"
+                   th:text="#{statements.gradePointAverage}"></a>
+
+                <a th:if="${order.equals('asc')}"
+                   th:href="@{'/admin/statements?facultyId='+ ${faculty.id}
+                +'&page='+${page}+'&sort=gradePointAverage&order=desc'}"
+                   th:text="#{statements.gradePointAverage}"></a>
             </th>
             <th>
-                <span th:text="#{statements.position}"></span>
+                <a th:if="${order.equals('desc')}"
+                   th:href="@{'/admin/statements?facultyId='+ ${faculty.id}
+                    +'&page='+${page}+'&sort=position&order=asc'}"
+                   th:text="#{statements.position}"></a>
+
+                <a th:if="${order.equals('asc')}"
+                        th:href="@{'/admin/statements?facultyId='+ ${faculty.id}
+                +'&page='+${page}+'&sort=position&order=desc'}"
+                   th:text="#{statements.position}"></a>
             </th>
 
         </tr>
@@ -45,7 +64,7 @@
         <td th:text="${statement.userId.getFirstname()}"></td>
         <td th:text="${statement.userId.getSurname()}"></td>
         <td th:text="${statement.getGradePointAverage()}"></td>
-        <td th:text="${statement.position_id.positionType.name()}"></td>
+        <td th:text="${statement.position.positionType.name()}"></td>
 
         </tbody>
         <h2>
@@ -56,5 +75,27 @@
         </h2>
     </table>
 </div>
+
+<nav aria-label="Page navigation example" th:if="${pages > 1}">
+    <ul class="pagination justify-content-center">
+
+        <th:block th:each="i: ${#numbers.sequence(1, pages)}">
+
+            <li class="page-item myselect active" th:value="${i}" th:if="${#strings.equals(i, page)}">
+                <a class="page-link"
+                   th:href="@{'/admin/statements?facultyId='+ ${faculty.id}
+                    +'&page='+${i}+'&sort='+${sort}+'&order='+${order}}"
+                   th:text="${i}"></a>
+            </li>
+            <li class="page-item myselect" th:value="${i}" th:if="${!#strings.equals(i, page)}">
+                <a class="page-link"
+                   th:href="@{'/admin/statements?facultyId='+ ${faculty.id}
+                   +'&page='+${i} +'&sort='+${sort}+'&order='+${order}}"
+                   th:text="${i}"></a>
+            </li>
+        </th:block>
+
+    </ul>
+</nav>
 </body>
 </html>

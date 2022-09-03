@@ -5,6 +5,7 @@ import com.epam.selectioncommittee.spring.controller.util.Sorter;
 import com.epam.selectioncommittee.spring.controller.util.Validator;
 import com.epam.selectioncommittee.spring.model.builders.FacultyFormBuilder;
 import com.epam.selectioncommittee.spring.model.exception.FacultyIsReservedException;
+import com.epam.selectioncommittee.spring.model.service.StatementService;
 import com.epam.selectioncommittee.spring.model.service.SubjectService;
 import com.epam.selectioncommittee.spring.model.entity.Faculty;
 import com.epam.selectioncommittee.spring.model.dto.FacultyForm;
@@ -29,10 +30,14 @@ public class FacultyController {
 
     private final FacultyService facultyService;
 
+
+
+
     @Autowired
     public FacultyController(SubjectService subjectService, FacultyService facultyService) {
         this.subjectService = subjectService;
         this.facultyService = facultyService;
+
     }
 
     @GetMapping(FacultyUrl.FACULTIES)

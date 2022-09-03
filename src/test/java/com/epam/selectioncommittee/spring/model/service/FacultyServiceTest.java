@@ -39,6 +39,7 @@ class FacultyServiceTest {
     private Faculty FACULTY_WITH_ID;
 
     private FacultyForm FACULTY_FORM;
+    private FacultyForm FACULTY_FORM_WITH_ID;
 
     private final Long ID = 1L;
 
@@ -73,6 +74,7 @@ class FacultyServiceTest {
                 .build();
 
         FACULTY_WITH_ID = FacultyBuilder.builder()
+                .id(ID)
                 .facultyName(FACULTY_NAME)
                 .facultyNameRU(FACULTY_NAME_RU)
                 .generalPlaces(10)
@@ -82,6 +84,17 @@ class FacultyServiceTest {
                 .build();
 
         FACULTY_FORM = FacultyFormBuilder.builder()
+
+                .facultyName(FACULTY_NAME)
+                .facultyNameRU(FACULTY_NAME_RU)
+                .generalPlaces(10)
+                .budgetPlaces(5)
+                .requiredSubjects(List.of(SUBJECT))
+                .recruitment(false)
+                .build();
+
+        FACULTY_FORM_WITH_ID = FacultyFormBuilder.builder()
+                .id(2L)
                 .facultyName(FACULTY_NAME)
                 .facultyNameRU(FACULTY_NAME_RU)
                 .generalPlaces(10)
@@ -95,6 +108,8 @@ class FacultyServiceTest {
     void addFaculty() throws FacultyIsReservedException {
         when(facultyRepository.existsByName(FACULTY_NAME)).thenReturn(false);
         when(facultyRepository.save(FACULTY)).thenReturn(FACULTY);
+
+
         assertEquals(facultyService.addFaculty(FACULTY_FORM), FACULTY);
 
     }
@@ -136,7 +151,8 @@ class FacultyServiceTest {
     void updateFacultyThrowsFacultyIsReservedException() {
 
         when(facultyRepository.existsByName(FACULTY_NAME)).thenReturn(true);
-        assertThrows(FacultyIsReservedException.class,()->facultyService.updateFaculty(FACULTY_FORM));
+        when(facultyRepository.findByName(FACULTY_FORM_WITH_ID.getFacultyName())).thenReturn(FACULTY_WITH_ID);
+        assertThrows(FacultyIsReservedException.class,()->facultyService.updateFaculty(FACULTY_FORM_WITH_ID));
     }
 
     @Test

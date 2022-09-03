@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <th:block  th:replace="parts/bootstrap.html"></th:block>
+</head>
+<body>
+<div class="container">
+    <h1 class="display-1 text-center " th:text="#{statements.delete}"></h1>
+    <h2>
+        <a class="btn btn-primary"  th:href="@{/}" th:text="#{common.back}"> </a>
+    </h2>
+</div>
+</body>
+</html>

@@ -31,8 +31,7 @@ AdminController {
     }
 
     @GetMapping()
-    public String adminPage(
-            @RequestParam("userId") Long id, Model model) {
+    public String adminPage(@RequestParam("id") Long id, Model model) {
 
         User user = userService.findUserById(id);
 
