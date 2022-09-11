@@ -5,7 +5,7 @@ public class SubjectUrl {
     private SubjectUrl() {
     }
 
-    public static final String ADD_SUBJECT = "/admin/addSubject";
+    public static final String CREATE_SUBJECT = "/admin/addSubject";
 
     public static final String SUBJECTS = "/admin/subjects";
 

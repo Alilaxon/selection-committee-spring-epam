@@ -34,14 +34,16 @@ public class RegistrationController {
     }
 
     @GetMapping("/form")
-    public String registration(@ModelAttribute("userForm") UserForm userForm){
+    public String getCreateUser(Model model){
+
+        model.addAttribute("userForm",new UserForm());
 
         return "registration";
     }
 
     @PostMapping()
-    public String newUser(@ModelAttribute("userForm") @Valid UserForm userForm,
-                          BindingResult bindingResult, Model model) {
+    public String postCreateUser(@ModelAttribute("userForm") @Valid UserForm userForm,
+                                 BindingResult bindingResult, Model model) {
         if(bindingResult.hasErrors()){
 
             log.info(" registration: validation error");

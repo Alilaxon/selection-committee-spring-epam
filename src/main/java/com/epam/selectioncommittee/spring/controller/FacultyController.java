@@ -5,7 +5,6 @@ import com.epam.selectioncommittee.spring.controller.util.Sorter;
 import com.epam.selectioncommittee.spring.controller.util.Validator;
 import com.epam.selectioncommittee.spring.model.builders.FacultyFormBuilder;
 import com.epam.selectioncommittee.spring.model.exception.FacultyIsReservedException;
-import com.epam.selectioncommittee.spring.model.service.StatementService;
 import com.epam.selectioncommittee.spring.model.service.SubjectService;
 import com.epam.selectioncommittee.spring.model.entity.Faculty;
 import com.epam.selectioncommittee.spring.model.dto.FacultyForm;
@@ -53,7 +52,7 @@ public class FacultyController {
     }
 
     @GetMapping(FacultyUrl.CREATE_FACULTY)
-    public String registrationFaculty(Model model) {
+    public String getCreateFaculty(Model model) {
 
         model.addAttribute("subjectList", subjectService.getAllSubjects())
                 .addAttribute("facultyForm", new FacultyForm());
@@ -62,10 +61,10 @@ public class FacultyController {
     }
 
     @PostMapping(FacultyUrl.CREATE_FACULTY)
-    public String addFaculty(@ModelAttribute("facultyForm")
+    public String postCreateFaculty(@ModelAttribute("facultyForm")
                              @Valid FacultyForm facultyForm,
-                             BindingResult bindingResult,
-                             Model model) {
+                                    BindingResult bindingResult,
+                                    Model model) {
 
         if (bindingResult.hasErrors() || Validator.facultyValid(facultyForm)) {
 
@@ -99,7 +98,7 @@ public class FacultyController {
     }
 
     @GetMapping(FacultyUrl.UPDATE_FACULTY)
-    public String updateFaculty(@RequestParam("facultyId") Long facultyId, Model model) {
+    public String getUpdateFaculty(@RequestParam("facultyId") Long facultyId, Model model) {
 
         Faculty faculty = facultyService.getFaculty(facultyId);
 
@@ -107,6 +106,7 @@ public class FacultyController {
                 .addAttribute("facultyForm", FacultyFormBuilder.builder()
                         .id(faculty.getId())
                         .facultyName(faculty.getName())
+                        .facultyNameRU(faculty.getNameRU())
                         .budgetPlaces(faculty.getBudgetPlaces())
                         .generalPlaces(faculty.getGeneralPlaces())
                         .requiredSubjects(faculty.getSubjects())
@@ -117,9 +117,9 @@ public class FacultyController {
     }
 
     @PatchMapping(FacultyUrl.UPDATE_FACULTY)
-    public String patchFaculty(@Valid FacultyForm facultyForm,
-                               BindingResult bindingResult,
-                               Model model) {
+    public String postUpdateFaculty(@Valid FacultyForm facultyForm,
+                                    BindingResult bindingResult,
+                                    Model model) {
 
         if (bindingResult.hasErrors() || Validator.facultyValid(facultyForm)) {
 

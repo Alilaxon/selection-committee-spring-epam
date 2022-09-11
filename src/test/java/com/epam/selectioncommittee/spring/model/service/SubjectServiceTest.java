@@ -78,4 +78,6 @@ class SubjectServiceTest {
         assertEquals(subjectService.getAllSubjects(),List.of(SUBJECT));
         verify(subjectRepository,times(1)).findAll();
     }
+
+
 }

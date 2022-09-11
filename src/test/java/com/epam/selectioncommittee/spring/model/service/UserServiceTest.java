@@ -98,7 +98,7 @@ class UserServiceTest {
 
     @Test
     void createUser() throws EmailIsReservedException, UsernameIsReservedException {
-        when(userRepository.existsUserByUsername(USERNAME)).thenReturn(false);
+        when(userRepository.existsByUsername(USERNAME)).thenReturn(false);
         when(userRepository.existsByEmail(EMAIL)).thenReturn(false);
         when(passwordEncoder.encode(PASSWORD)).thenReturn(PASSWORD_ENCODED);
         when(roleRepository.findByRoleName(Role.RoleName.USER)).thenReturn(ROLE);
@@ -111,7 +111,7 @@ class UserServiceTest {
 
     @Test
     void createUserThrowsUsernameIsReservedException() {
-        when(userRepository.existsUserByUsername(USERNAME)).thenReturn(true);
+        when(userRepository.existsByUsername(USERNAME)).thenReturn(true);
         assertThrows(UsernameIsReservedException.class ,() -> userService.createUser(USER_FORM));
     }
 

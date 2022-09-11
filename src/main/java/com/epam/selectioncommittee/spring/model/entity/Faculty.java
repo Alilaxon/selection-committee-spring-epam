@@ -113,12 +113,18 @@ public class Faculty {
         if (this == o) return true;
         if (!(o instanceof Faculty)) return false;
         Faculty faculty = (Faculty) o;
-        return name.equals(faculty.name) && nameRU.equals(faculty.nameRU);
+        return Objects.equals(id, faculty.id)
+                && name.equals(faculty.name)
+                && nameRU.equals(faculty.nameRU)
+                && budgetPlaces.equals(faculty.budgetPlaces)
+                && generalPlaces.equals(faculty.generalPlaces)
+                && subjects.equals(faculty.subjects)
+                && recruitment.equals(faculty.recruitment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, nameRU);
+        return Objects.hash(id, name, nameRU, budgetPlaces, generalPlaces, subjects, recruitment);
     }
 
     @Override

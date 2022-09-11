@@ -35,6 +35,7 @@ public class StatementService {
     }
 
     public Statement createStatement(StatementForm statementForm) throws UserAlreadyRegisteredException {
+
         checkIfRegistered(statementForm);
 
         log.info("User '{}'  created statement", statementForm.getUser().getUsername());
@@ -68,32 +69,32 @@ public class StatementService {
     }
 
     public void finalizeStatements(Faculty faculty) {
-
+         //находит все заявления на факультет
         List<Statement> statements = findAllStatementsByFaculty(faculty);
-
+        // устанавливает всем позицию REJECTED
         statements.stream()
                 .forEach(statement -> statement.setPosition(
                         positionRepository.findByPositionType(Position.PositionType.REJECTED)));
-
+        //сортирует по убыванию и устанавливает позицию CONTRACT , согласно количеству мест на факультете
         sorter(statements).stream()
                 .limit(faculty.getGeneralPlaces())
                 .forEach(statement -> statement.setPosition(
                         positionRepository.findByPositionType(Position.PositionType.CONTRACT)));
-
+        //сортирует по убыванию и устанавливает позицию BUDGET , согласно количеству мест на факультете
         sorter(statements).stream()
                 .limit(faculty.getBudgetPlaces())
                 .forEach(statement -> statement.setPosition(
                         positionRepository.findByPositionType(Position.PositionType.BUDGET)));
 
         log.info("faculty '{}'  finalized results", faculty.getName());
-
+          //ищет остальные заявки поступивших студентов и удаляет их
         for (Statement statement : statements) {
             if (isOnFaculty(statement)) {
 
                 log.info("all other statements of '{}' on '{}' will be delete"
+
                         , statement.getUserId().getUsername()
                         , statement.getFacultyId().getName());
-
                 deleteOtherStatements(statement);
             }
         }

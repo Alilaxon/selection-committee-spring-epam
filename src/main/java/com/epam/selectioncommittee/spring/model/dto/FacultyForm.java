@@ -14,7 +14,7 @@ public class FacultyForm {
 
     @NotBlank(message = "field can not be empty")
     private String facultyName;
-
+    @NotBlank
     private String facultyNameRU;
 
     @NotNull(message = "field can not be empty")
@@ -41,7 +41,7 @@ public class FacultyForm {
                        Boolean recruitment) {
         this.id = id;
         this.facultyName = facultyName;
-        this.facultyNameRU = facultyName;
+        this.facultyNameRU = facultyNameRU;
         this.budgetPlaces = budgetPlaces;
         this.generalPlaces = generalPlaces;
         this.requiredSubjects = requiredSubjects;
@@ -113,6 +113,7 @@ public class FacultyForm {
     }
 
     public void setFacultyNameRU(String facultyNameRU) {
+
         this.facultyNameRU = facultyNameRU;
     }
 

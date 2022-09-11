@@ -64,7 +64,7 @@ public class UserService implements UserDetailsService {
 
     private void checkUsername(String login) throws UsernameIsReservedException {
 
-        if (userRepository.existsUserByUsername(login)) {
+        if (userRepository.existsByUsername(login)) {
 
             log.warn(" '{}' is reserved", login);
             throw new UsernameIsReservedException();

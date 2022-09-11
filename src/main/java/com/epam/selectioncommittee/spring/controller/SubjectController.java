@@ -45,15 +45,15 @@ public class SubjectController {
 
     }
 
-    @GetMapping(SubjectUrl.ADD_SUBJECT)
-    public String registrationSubject(@ModelAttribute("subjectFrom") SubjectForm subjectForm) {
+    @GetMapping(SubjectUrl.CREATE_SUBJECT)
+    public String getCreateSubject(@ModelAttribute("subjectFrom") SubjectForm subjectForm) {
 
         return "/admin/createSubject";
 
     }
 
-    @PostMapping(SubjectUrl.ADD_SUBJECT)
-    public String addSubject(@ModelAttribute("subjectFrom")
+    @PostMapping(SubjectUrl.CREATE_SUBJECT)
+    public String postCreateSubject(@ModelAttribute("subjectFrom")
                              @Valid SubjectForm subjectForm,
                              BindingResult bindingResult,
                              Model model) {

@@ -14,5 +14,10 @@ public class MainPageController {
         return "main";
     }
 
+    @GetMapping("/test")
+    public String tempLogin(){
+        return "login";
+    }
+
 
 }

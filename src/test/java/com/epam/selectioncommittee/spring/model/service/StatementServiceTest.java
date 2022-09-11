@@ -37,6 +37,13 @@ class StatementServiceTest {
 
     private Statement STATEMENT;
 
+    private Statement STATEMENT_TWO;
+
+    private Statement STATEMENT_THREE;
+
+
+    private List<Statement> STATEMENTS;
+
     private StatementForm STATEMENT_FORM;
 
     private final Long ID = 1l;
@@ -64,13 +71,28 @@ class StatementServiceTest {
                 .positionId(POSITION)
                 .build();
 
+        STATEMENT_TWO = StatementBuilder.builder()
+                .userId(USER)
+                .facultyId(FACULTY)
+                .gradePointAverage(155L)
+                .positionId(POSITION)
+                .build();
+
+        STATEMENT_THREE = StatementBuilder.builder()
+                .userId(USER)
+                .facultyId(FACULTY)
+                .gradePointAverage(125L)
+                .positionId(POSITION)
+                .build();
+
+
         STATEMENT_FORM = StatementFormBuilder.builder()
                 .user(USER)
                 .faculty(FACULTY)
                 .grades(GRADES)
                 .build();
 
-
+        STATEMENTS = List.of(STATEMENT,STATEMENT_TWO,STATEMENT_THREE);
 
 
     }
@@ -97,4 +119,6 @@ class StatementServiceTest {
         assertEquals(statementService.findAllStatementsByFaculty(FACULTY),List.of(STATEMENT));
         verify(statementRepository,times(1)).findAllByFacultyId(FACULTY);
     }
+
+
 }

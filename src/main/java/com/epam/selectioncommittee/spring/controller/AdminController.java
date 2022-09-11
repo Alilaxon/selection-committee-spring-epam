@@ -1,4 +1,4 @@
-package com.epam.selectioncommittee.spring.controller.admin;
+package com.epam.selectioncommittee.spring.controller;
 
 
 import com.epam.selectioncommittee.spring.model.service.StatementService;
@@ -13,28 +13,22 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/admin")
-public class
-AdminController {
+public class AdminController {
 
    private final UserService userService;
     private final  FacultyService facultyService;
     private final StatementService statementService;
 
-
     @Autowired
-    public AdminController(UserService userService,
-                           FacultyService facultyService,
-                           StatementService statementService) {
+    public AdminController(UserService userService, FacultyService facultyService, StatementService statementService) {
         this.facultyService = facultyService;
         this.userService = userService;
         this.statementService = statementService;
     }
-
     @GetMapping()
     public String adminPage(@RequestParam("id") Long id, Model model) {
 
         User user = userService.findUserById(id);
-
 
         model.addAttribute("userProfile", user);
 
@@ -60,8 +54,8 @@ AdminController {
         return "redirect:/admin/users";
     }
     @PatchMapping("/recruitment")
-    public String recruitmentOnFaculty(@RequestParam("facultyId") Long facultyId,
-                                       @RequestParam("facultyOpen") boolean recruit) {
+    public String openCloseFaculty(@RequestParam("facultyId") Long facultyId,
+                                   @RequestParam("facultyOpen") boolean recruit) {
         if (recruit) {
             facultyService.openFacultyById(facultyId);
         } else {

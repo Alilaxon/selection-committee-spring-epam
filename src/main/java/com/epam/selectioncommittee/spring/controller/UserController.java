@@ -1,4 +1,4 @@
-package com.epam.selectioncommittee.spring.controller.user;
+package com.epam.selectioncommittee.spring.controller;
 
 
 import com.epam.selectioncommittee.spring.model.dto.StatementForm;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/user")
 public class UserController {
 
     private final FacultyService facultyService;
@@ -38,7 +37,7 @@ public class UserController {
         this.statementService = statementService;
     }
 
-    @GetMapping()
+    @GetMapping("/user")
     public String userPage(@RequestParam("id") Long id, Model model) {
 
         User user = userService.findUserById(id);
@@ -51,9 +50,9 @@ public class UserController {
         return "user/userInfo";
     }
 
-    @GetMapping("/statement")
-    public String statementPage(@RequestParam(name = "facultyId") Long facultyId,
-                                Model model, Authentication authentication) {
+ //   @GetMapping("/statement")
+    public String getCreateStatement(@RequestParam(name = "facultyId") Long facultyId,
+                                     Model model, Authentication authentication) {
 
         User user = userService.findByName(authentication.getName());
         Faculty faculty = facultyService.getFaculty(facultyId);
@@ -74,8 +73,8 @@ public class UserController {
 
     }
 
-    @PostMapping("/statement")
-    public String createStatement(@ModelAttribute("statementForm")
+//    @PostMapping("/statement")
+    public String postCreateStatement(@ModelAttribute("statementForm")
                                       StatementForm statementForm, Model model)  {
         try {
             statementService.createStatement(statementForm);

@@ -210,6 +210,19 @@ public class User implements UserDetails {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return username.equals(user.username) && email.equals(user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, email);
+    }
+
 //    @Override
 //    public boolean equals(Object o) {
 //        if (this == o) return true;
@@ -230,22 +243,6 @@ public class User implements UserDetails {
 //
 //    @Override
 //    public int hashCode() {
-//        return Objects.hash(id, username, password, email,
-//                firstname, surname, city, region,
-//                institution, role, blocked);
+//        return Objects.hash(id, username, password, email, firstname, surname, city, region, institution, role, blocked);
 //    }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) && username.equals(user.username) && password.equals(user.password) && email.equals(user.email) && firstname.equals(user.firstname) && surname.equals(user.surname) && city.equals(user.city) && region.equals(user.region) && institution.equals(user.institution) && role.equals(user.role) && blocked.equals(user.blocked);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, username, password, email, firstname, surname, city, region, institution, role, blocked);
-    }
 }
