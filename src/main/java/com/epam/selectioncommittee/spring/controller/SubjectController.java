@@ -1,7 +1,7 @@
 package com.epam.selectioncommittee.spring.controller;
 
 import com.epam.selectioncommittee.spring.controller.util.Sorter;
-import com.epam.selectioncommittee.spring.controller.util.SubjectUrl;
+import com.epam.selectioncommittee.spring.controller.util.url.SubjectUrl;
 import com.epam.selectioncommittee.spring.model.exception.SubjectIsReservedException;
 import com.epam.selectioncommittee.spring.model.service.SubjectService;
 import com.epam.selectioncommittee.spring.model.entity.Subject;

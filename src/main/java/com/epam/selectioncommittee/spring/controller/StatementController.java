@@ -1,11 +1,9 @@
 package com.epam.selectioncommittee.spring.controller;
 
-import com.epam.selectioncommittee.spring.controller.util.FacultyUrl;
 import com.epam.selectioncommittee.spring.controller.util.Sorter;
-import com.epam.selectioncommittee.spring.controller.util.StatementUrl;
+import com.epam.selectioncommittee.spring.controller.util.url.StatementUrl;
 import com.epam.selectioncommittee.spring.model.dto.StatementForm;
 import com.epam.selectioncommittee.spring.model.entity.Statement;
-import com.epam.selectioncommittee.spring.model.entity.Subject;
 import com.epam.selectioncommittee.spring.model.entity.User;
 import com.epam.selectioncommittee.spring.model.exception.UserAlreadyRegisteredException;
 import com.epam.selectioncommittee.spring.model.service.StatementService;

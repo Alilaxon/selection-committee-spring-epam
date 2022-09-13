@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@Controller
-@RequestMapping("/registration")
+//@Controller
+//@RequestMapping("/registration")
 public class RegistrationController {
 
     private static final Logger log = LogManager.getLogger(RegistrationController.class);

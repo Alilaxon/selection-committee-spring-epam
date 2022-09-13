@@ -1,27 +1,28 @@
 package com.epam.selectioncommittee.spring.controller;
 
-
-import com.epam.selectioncommittee.spring.model.dto.StatementForm;
+import com.epam.selectioncommittee.spring.controller.util.url.UserUrl;
+import com.epam.selectioncommittee.spring.model.dto.UserForm;
 import com.epam.selectioncommittee.spring.model.entity.Statement;
+import com.epam.selectioncommittee.spring.model.exception.EmailIsReservedException;
+import com.epam.selectioncommittee.spring.model.exception.UsernameIsReservedException;
 import com.epam.selectioncommittee.spring.model.service.StatementService;
-import com.epam.selectioncommittee.spring.model.entity.Faculty;
 import com.epam.selectioncommittee.spring.model.entity.User;
-import com.epam.selectioncommittee.spring.model.exception.UserAlreadyRegisteredException;
-import com.epam.selectioncommittee.spring.model.service.FacultyService;
-
 import com.epam.selectioncommittee.spring.model.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
 public class UserController {
 
-    private final FacultyService facultyService;
+    private static final Logger log = LogManager.getLogger(UserController.class);
 
     private final UserService userService;
 
@@ -29,63 +30,80 @@ public class UserController {
 
     @Autowired
     public UserController(UserService userService,
-                          FacultyService facultyService,
                           StatementService statementService) {
 
-        this.facultyService = facultyService;
         this.userService = userService;
         this.statementService = statementService;
     }
 
-    @GetMapping("/user")
+    @GetMapping
+    public String main() {
+
+        return "main";
+    }
+
+  //  @GetMapping("/registered")
+    @GetMapping(UserUrl.REGISTERED)
+    public String registrationCompleted() {
+
+        return "registrationCompleted";
+    }
+
+    //   @GetMapping("/user")
+    @GetMapping(UserUrl.USER)
     public String userPage(@RequestParam("id") Long id, Model model) {
 
         User user = userService.findUserById(id);
 
         List<Statement> statements = statementService.findAllStatementsByUserId(user);
 
-        model.addAttribute("statements", statements);
-        model.addAttribute("userProfile", user);
+        model.addAttribute("statements", statements)
+                .addAttribute("userProfile", user);
 
         return "user/userInfo";
     }
 
- //   @GetMapping("/statement")
-    public String getCreateStatement(@RequestParam(name = "facultyId") Long facultyId,
-                                     Model model, Authentication authentication) {
+    //   @GetMapping("/registration/form")
+    @GetMapping(UserUrl.REGISTRATION)
+    public String getCreateUser(Model model) {
 
-        User user = userService.findByName(authentication.getName());
-        Faculty faculty = facultyService.getFaculty(facultyId);
+        model.addAttribute("userForm", new UserForm());
 
-        if (statementService.checkIfRegistered(user, faculty)) {
-
-            return "user/alreadyRegistered";
-        }
-
-        StatementForm statementForm = new StatementForm();
-        statementForm.setUser(user);
-        statementForm.setFaculty(faculty);
-
-        model.addAttribute("statementForm", statementForm);
-        model.addAttribute("subjectList", faculty.getSubjects());
-
-        return "user/createStatement";
-
+        return "registration";
     }
 
-//    @PostMapping("/statement")
-    public String postCreateStatement(@ModelAttribute("statementForm")
-                                      StatementForm statementForm, Model model)  {
+    //   @PostMapping("/registration/form")
+    @PostMapping(UserUrl.REGISTRATION)
+    public String postCreateUser(@ModelAttribute("userForm") @Valid UserForm userForm,
+                                 BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+
+            log.info(" registration: validation error");
+
+            return "registration";
+        }
+
         try {
-            statementService.createStatement(statementForm);
+            userService.createUser(userForm);
 
-            return "redirect:/faculties";
+            return "redirect:/registered";
 
-        } catch (UserAlreadyRegisteredException exception) {
+        } catch (UsernameIsReservedException exception) {
 
-            model.addAttribute("UserAlreadyRegistered", true);
+            log.info(" registration: LoginIsReserved");
+
+            model.addAttribute("LoginIsReserved", true);
+
+        } catch (EmailIsReservedException exception) {
+
+            log.info(" registration: EmailIsReservedException");
+
+            model.addAttribute("EmailIsReserved", true);
         }
-        return "user/createStatement";
+
+        return "registration";
     }
+
 
 }

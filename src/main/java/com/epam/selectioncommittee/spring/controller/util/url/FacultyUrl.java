@@ -1,4 +1,4 @@
-package com.epam.selectioncommittee.spring.controller.util;
+package com.epam.selectioncommittee.spring.controller.util.url;
 
 public class FacultyUrl {
 

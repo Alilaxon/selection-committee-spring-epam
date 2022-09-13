@@ -1,6 +1,6 @@
 package com.epam.selectioncommittee.spring.controller;
 
-import com.epam.selectioncommittee.spring.controller.util.FacultyUrl;
+import com.epam.selectioncommittee.spring.controller.util.url.FacultyUrl;
 import com.epam.selectioncommittee.spring.controller.util.Sorter;
 import com.epam.selectioncommittee.spring.controller.util.Validator;
 import com.epam.selectioncommittee.spring.model.builders.FacultyFormBuilder;
